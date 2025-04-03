@@ -4,6 +4,129 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Planner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="main-content">
+      <div class="sidebar">
+        <div class="nav-item active">
+          <i class="fas fa-tasks"></i>
+          <span>Tasks</span>
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Log out</span>
+        </div>
+      </div>
+      <div class="tasks-area">
+        <h1>Bienvenido Nombre</h1>
+        <div class="tasks-columns">
+          <div class="task-column pending">
+            <div class="column-header">
+              <h2>Pendientes</h2>
+              <span class="badge">3</span>
+            </div>
+            <div class="task-card priority-high">
+              <div class="date">20-05-23</div>
+              <h3>Investigación de mercado</h3>
+              <div class="tag-container">
+                <span class="tag tag-trabajo"
+                  ><i class="fas fa-briefcase fa-xs"></i>&nbsp; Trabajo</span
+                >
+                <span class="tag tag-documentación"
+                  ><i class="fas fa-file-alt fa-xs"></i>&nbsp;
+                  Documentación</span
+                >
+              </div>
+              <p>Realizar estudio de competencia y análisis FODA</p>
+              <div class="task-footer priority-high">
+                <div class="priority-indicator">
+                  <span class="priority-dot"></span>
+                  <span class="priority-text">Alta</span>
+                </div>
+                <div class="task-actions">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+              </div>
+            </div>
+            <div class="task-card priority-medium">
+              <div class="date">22-05-23</div>
+              <h3>Reunir requerimientos</h3>
+              <div class="tag-container">
+                <span class="tag tag-reunión"
+                  ><i class="fas fa-users fa-xs"></i>&nbsp; Reunión</span
+                >
+                <span class="tag tag-trabajo"
+                  ><i class="fas fa-briefcase fa-xs"></i>&nbsp; Trabajo</span
+                >
+              </div>
+              <p>Entrevistar a stakeholders para definir alcance</p>
+              <div class="task-footer priority-medium">
+                <div class="priority-indicator">
+                  <span class="priority-dot"></span>
+                  <span class="priority-text">Media</span>
+                </div>
+                <div class="task-actions">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+              </div>
+            </div>
+            <div class="task-card priority-low">
+              <div class="date">25-05-23</div>
+              <h3>Revisar documentación</h3>
+              <div class="tag-container">
+                <span class="tag tag-documentación"
+                  ><i class="fas fa-file-alt fa-xs"></i>&nbsp;
+                  Documentación</span
+                >
+              </div>
+              <p>Revisar documentos de proyectos similares</p>
+              <div class="task-footer priority-low">
+                <div class="priority-indicator">
+                  <span class="priority-dot"></span>
+                  <span class="priority-text">Baja</span>
+                </div>
+                <div class="task-actions">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="task-column progress">
+            <div class="column-header">
+              <h2>En progreso</h2>
+              <span class="badge">3</span>
+            </div>
+          </div>
+          <div class="task-column completed">
+            <div class="column-header">
+              <h2>Completadas</h2>
+              <span class="badge">3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
