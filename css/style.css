@@ -586,6 +586,32 @@ textarea.form-control {
   margin-top: 4px;
 }
 
+.priority-options {
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: none;
+  background-color: white;
+  position: absolute;
+  z-index: 10;
+}
+
+.priority-options li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.priority-options li:hover {
+  background-color: #f0f0f0;
+}
+
+.priority-options.show {
+  display: block;
+  z-index: 100;
+}
+
 @media (max-width: 1100px) {
   .tasks-columns {
     grid-template-columns: 1fr;

@@ -415,6 +415,40 @@ const saveTasks = () => {
   localStorage.setItem(`tasks_${currentUser.email}`, JSON.stringify(tasksData));
 };
 
+const filterBtn = document.getElementById('priority-filter-btn');
+const priorityOptions = document.getElementById('priority-options');
+
+filterBtn.addEventListener('click', () => {
+  priorityOptions.classList.toggle('show');
+});
+
+priorityOptions.addEventListener('click', e => {
+  if (e.target.tagName === 'LI') {
+    const selectedPriority = e.target.getAttribute('data-priority');
+    filterTasksByPriority(selectedPriority);
+    priorityOptions.classList.remove('show');
+  }
+});
+
+const filterTasksByPriority = priority => {
+  const allTasks = document.querySelectorAll('.task-card');
+
+  allTasks.forEach(task => {
+    const taskPriority = [...task.classList]
+      .find(c => c.startsWith('priority-'))
+      ?.replace('priority-', '');
+
+    console.log('Prioridad seleccionada:', priority);
+    console.log('Prioridad de la tarea:', taskPriority);
+
+    if (priority === 'all' || taskPriority === priority) {
+      task.style.display = 'block';
+    } else {
+      task.style.display = 'none';
+    }
+  });
+};
+
 addButtonElement.addEventListener('click', () => openModal());
 cancelButtonElement.addEventListener('click', closeModal);
 saveButtonElement.addEventListener('click', saveTask);

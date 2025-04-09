@@ -44,9 +44,17 @@
         <div class="tasks-area-header">
           <h1 class="title">Bienvenido Nombre</h1>
           <div class="buttons-container">
-            <button class="button">
-              <i class="fa-solid fa-filter"></i>Filtrar
-            </button>
+            <div class="priority-filter">
+              <button class="button" id="priority-filter-btn">
+                <i class="fa-solid fa-filter"></i> Filtrar
+              </button>
+              <ul id="priority-options" class="priority-options hidden">
+                <li data-priority="all">Todas</li>
+                <li data-priority="alta">Alta</li>
+                <li data-priority="media">Media</li>
+                <li data-priority="baja">Baja</li>
+              </ul>
+            </div>
             <button class="button" id="addTask">
               <i class="fa-solid fa-plus"></i>Nueva tarea
             </button>
