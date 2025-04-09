@@ -59,6 +59,14 @@ registerForm.addEventListener('submit', e => {
 
   let valid = true;
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById('new-email').classList.add('wrong');
+    registerError.textContent = 'Introduce un correo válido';
+    registerError.classList.remove('hidden');
+    valid = false;
+  }
+
   // Validar que el nombre no esté vacío
   if (name === '') {
     document.getElementById('new-name').classList.add('wrong');

@@ -1,4 +1,5 @@
-// scripts.js modificado para guardar tareas en localStorage
+import { weatherService } from './weather/weatherService.js';
+
 const addButtonElement = document.getElementById('addTask');
 const modalElement = document.getElementById('modal');
 const cancelButtonElement = document.getElementById('cancel-button');
@@ -20,6 +21,9 @@ const cancelDeleteBtn = document.getElementById('cancel-delete');
 const userNameElement = document.querySelector('.title');
 const logoutBtn = document.querySelector('.nav-item:nth-child(4)');
 const avatarElement = document.querySelector('.avatar');
+
+const weatherTemp = document.getElementById('weather-temp');
+const weatherIcon = document.getElementById('weather-icon');
 
 let editingTaskCard = null;
 let editingTaskId = null;
@@ -448,6 +452,22 @@ const filterTasksByPriority = priority => {
     }
   });
 };
+
+const showWeatherByCity = async city => {
+  const weather = await weatherService.getWeatherByCity(city);
+
+  if (weather) {
+    const roundedTemperature = Math.round(weather.temperature);
+    weatherTemp.textContent = `${roundedTemperature}°C`;
+
+    weatherIcon.src = weather.icon;
+    weatherIcon.alt = weather.description; // Añade la descripción como alt para accesibilidad
+  } else {
+    console.log('No se pudo obtener el clima.');
+  }
+};
+
+showWeatherByCity('Madrid');
 
 addButtonElement.addEventListener('click', () => openModal());
 cancelButtonElement.addEventListener('click', closeModal);
