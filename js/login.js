@@ -23,7 +23,6 @@ loginForm.addEventListener('submit', e => {
 
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  const remember = document.getElementById('remember').checked;
 
   const users = JSON.parse(localStorage.getItem('users')) || [];
   const user = users.find(u => u.email === email && u.password === password);
@@ -37,11 +36,7 @@ loginForm.addEventListener('submit', e => {
       timestamp: new Date().getTime()
     };
 
-    if (remember) {
-      localStorage.setItem('session', JSON.stringify(sessionData));
-    } else {
-      sessionStorage.setItem('session', JSON.stringify(sessionData));
-    }
+    sessionStorage.setItem('session', JSON.stringify(sessionData));
 
     // Redireccionar a la página principal
     window.location.href = '../index.html';

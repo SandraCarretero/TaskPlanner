@@ -580,6 +580,12 @@ textarea.form-control {
   display: none;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
 @media (max-width: 1100px) {
   .tasks-columns {
     grid-template-columns: 1fr;

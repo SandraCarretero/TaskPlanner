@@ -104,11 +104,13 @@
         <div class="form-group">
           <label for="task-title">Título</label>
           <input type="text" id="task-title" class="form-control" />
+          <div class="error-message" id="error-title"></div>
         </div>
 
         <div class="form-group">
           <label for="task-date">Fecha límite</label>
           <input type="date" id="task-date" class="form-control" />
+          <div class="error-message" id="error-date"></div>
         </div>
 
         <div class="form-group">
@@ -136,29 +138,35 @@
               Documentación
             </button>
           </div>
+          <div class="error-message" id="error-tags"></div>
         </div>
 
         <div class="form-group">
           <label for="task-description">Descripción</label>
           <textarea id="task-description" class="form-control"></textarea>
+          <div class="error-message" id="error-description"></div>
         </div>
 
         <div class="form-group">
           <label for="task-status">Estado</label>
           <select id="task-status" class="form-control">
+            <option value="">Seleccione estado</option>
             <option value="pending">Pendiente</option>
             <option value="progress">En Progreso</option>
             <option value="completed">Completada</option>
           </select>
+          <div class="error-message" id="error-status"></div>
         </div>
 
         <div class="form-group">
           <label for="task-priority">Prioridad</label>
           <select id="task-priority" class="form-control">
+            <option value="">Seleccione prioridad</option>
             <option value="baja">Baja</option>
             <option value="media">Media</option>
             <option value="alta">Alta</option>
           </select>
+          <div class="error-message" id="error-priority"></div>
         </div>
       </div>
     </div>

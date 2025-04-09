@@ -227,7 +227,55 @@ const createTaskCard = taskData => {
   updateBadges();
 };
 
+const validateForm = () => {
+  let isValid = true;
+
+  // Limpia mensajes anteriores
+  document
+    .querySelectorAll('.error-message')
+    .forEach(el => (el.textContent = ''));
+
+  if (!titleTask.value.trim()) {
+    document.getElementById('error-title').textContent = 'Campo obligatorio';
+    isValid = false;
+  }
+
+  if (!dateTask.value.trim()) {
+    document.getElementById('error-date').textContent = 'Campo obligatorio';
+    isValid = false;
+  }
+
+  if (!descriptionTask.value.trim()) {
+    document.getElementById('error-description').textContent =
+      'Campo obligatorio';
+    isValid = false;
+  }
+
+  if (!priorityTask.value.trim()) {
+    document.getElementById('error-priority').textContent = 'Campo obligatorio';
+    isValid = false;
+  }
+
+  if (!statusTask.value.trim()) {
+    document.getElementById('error-status').textContent = 'Campo obligatorio';
+    isValid = false;
+  }
+
+  const selectedTags = Array.from(
+    document.querySelectorAll('.tags-selection .tag.selected')
+  );
+  if (selectedTags.length === 0) {
+    document.getElementById('error-tags').textContent =
+      'Debes seleccionar al menos una etiqueta';
+    isValid = false;
+  }
+
+  return isValid;
+};
+
 const saveTask = () => {
+  if (!validateForm()) return;
+
   const taskData = getTaskData();
 
   if (editingTaskCard) {
@@ -237,21 +285,25 @@ const saveTask = () => {
 
   createTaskCard(taskData);
   saveTasks();
-  modalElement.classList.add('hidden');
   clearForm();
+  closeModal();
 };
 
 const clearForm = () => {
   titleTask.value = '';
   dateTask.value = '';
   descriptionTask.value = '';
-  priorityTask.value = 'baja';
-  statusTask.value = 'pending';
+  priorityTask.value = '';
+  statusTask.value = '';
 
   document.querySelectorAll('.tags-selection .tag').forEach(tag => {
     tag.classList.remove('selected');
     tag.classList.add('noselected');
   });
+
+  document
+    .querySelectorAll('.error-message')
+    .forEach(el => (el.textContent = ''));
 };
 
 document.querySelectorAll('.tags-selection .tag').forEach(tag => {
