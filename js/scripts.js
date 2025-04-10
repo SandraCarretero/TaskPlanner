@@ -114,8 +114,7 @@ const closeModal = () => {
 
 const getTaskData = () => {
   const title = capitalizeFirstLetter(titleTask.value);
-  const dateObj = new Date(dateTask.value);
-  const date = dateObj.toLocaleDateString('es-ES');
+  const date = dateTask.value;
   const description = capitalizeFirstLetter(descriptionTask.value);
   const priority = priorityTask.value;
   const status = statusTask.value;

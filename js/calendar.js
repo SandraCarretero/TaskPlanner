@@ -13,7 +13,6 @@ const renderHoliday = holiday => {
   const holidayName = document.createElement('p');
   holidayName.classList.add('holiday-name');
   holidayName.textContent = holiday.localName;
-  console.log(holiday);
 
   holidayCard.appendChild(holidayDate);
   holidayCard.appendChild(holidayName);
