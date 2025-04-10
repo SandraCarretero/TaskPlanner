@@ -57,39 +57,54 @@ registerForm.addEventListener('submit', e => {
   // Restablecer clases antes de cualquier validación
   resetFormClasses();
 
+  const errorFields = [
+    'error-new-name',
+    'error-new-email',
+    'error-new-password',
+    'error-confirm-password'
+  ];
+
+  errorFields.forEach(id => {
+    const el = document.getElementById(id);
+    el.textContent = '';
+    el.classList.add('hidden');
+  });
+
+  document
+    .querySelectorAll('.form-control')
+    .forEach(input => input.classList.remove('wrong'));
+
   let valid = true;
+
+  if (name === '') {
+    showError('new-name', 'El nombre no puede estar vacío');
+    valid = false;
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    document.getElementById('new-email').classList.add('wrong');
-    registerError.textContent = 'Introduce un correo válido';
-    registerError.classList.remove('hidden');
+    showError('new-email', 'Introduce un correo válido');
     valid = false;
   }
 
-  // Validar que el nombre no esté vacío
-  if (name === '') {
-    document.getElementById('new-name').classList.add('wrong');
-    registerError.textContent = 'El nombre no puede estar vacío';
-    registerError.classList.remove('hidden');
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  if (!passwordRegex.test(password)) {
+    showError(
+      'new-password',
+      'La contraseña debe tener al menos 6 caracteres, incluyendo letras y números'
+    );
     valid = false;
   }
 
-  // Validar que las contraseñas coincidan
   if (password !== confirmPassword) {
-    document.getElementById('new-password').classList.add('wrong');
-    document.getElementById('confirm-password').classList.add('wrong');
-    registerError.textContent = 'Las contraseñas no coinciden';
-    registerError.classList.remove('hidden');
+    showError('confirm-password', 'Las contraseñas no coinciden');
     valid = false;
   }
 
   // Verificar si el correo ya está en uso
   const users = JSON.parse(localStorage.getItem('users')) || [];
   if (users.some(u => u.email === email)) {
-    document.getElementById('new-email').classList.add('wrong');
-    registerError.textContent = 'El correo ya está en uso';
-    registerError.classList.remove('hidden');
+    showError('new-email', 'El correo ya está en uso');
     valid = false;
   }
 
@@ -125,6 +140,14 @@ registerForm.addEventListener('submit', e => {
     window.location.href = '../index.html';
   }
 });
+
+const showError = (inputId, message) => {
+  const input = document.getElementById(inputId);
+  const error = document.getElementById('error-' + inputId);
+  input.classList.add('wrong');
+  error.textContent = message;
+  error.classList.remove('hidden');
+};
 
 // Función para restablecer las clases de los campos
 function resetFormClasses() {

@@ -412,6 +412,7 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .weather-card {
@@ -435,10 +436,31 @@ body {
   color: #faad14;
 }
 
-.motivational-card {
-  font-size: 18px;
-  line-height: 20px;
-  text-align: center;
+.holidays-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.holiday-card {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.holiday-date {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+}
+
+.holiday-name {
+  color: #555;
+  margin: 0;
 }
 
 .modal {

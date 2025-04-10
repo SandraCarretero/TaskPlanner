@@ -1,4 +1,5 @@
-import { weatherService } from './weather/weatherService.js';
+import { loadCurrentWeather } from './weather.js';
+import { loadHolidays } from './calendar.js';
 
 const addButtonElement = document.getElementById('addTask');
 const modalElement = document.getElementById('modal');
@@ -21,9 +22,6 @@ const cancelDeleteBtn = document.getElementById('cancel-delete');
 const userNameElement = document.querySelector('.title');
 const logoutBtn = document.querySelector('.nav-item:nth-child(4)');
 const avatarElement = document.querySelector('.avatar');
-
-const weatherTemp = document.getElementById('weather-temp');
-const weatherIcon = document.getElementById('weather-icon');
 
 let editingTaskCard = null;
 let editingTaskId = null;
@@ -116,7 +114,8 @@ const closeModal = () => {
 
 const getTaskData = () => {
   const title = capitalizeFirstLetter(titleTask.value);
-  const date = dateTask.value;
+  const dateObj = new Date(dateTask.value);
+  const date = dateObj.toLocaleDateString('es-ES');
   const description = capitalizeFirstLetter(descriptionTask.value);
   const priority = priorityTask.value;
   const status = statusTask.value;
@@ -453,21 +452,11 @@ const filterTasksByPriority = priority => {
   });
 };
 
-const showWeatherByCity = async city => {
-  const weather = await weatherService.getWeatherByCity(city);
+document.addEventListener('DOMContentLoaded', () => {
+  loadCurrentWeather('Madrid');
+});
 
-  if (weather) {
-    const roundedTemperature = Math.round(weather.temperature);
-    weatherTemp.textContent = `${roundedTemperature}°C`;
-
-    weatherIcon.src = weather.icon;
-    weatherIcon.alt = weather.description; // Añade la descripción como alt para accesibilidad
-  } else {
-    console.log('No se pudo obtener el clima.');
-  }
-};
-
-showWeatherByCity('Madrid');
+document.addEventListener('DOMContentLoaded', loadHolidays);
 
 addButtonElement.addEventListener('click', () => openModal());
 cancelButtonElement.addEventListener('click', closeModal);
