@@ -37,7 +37,6 @@ export const getAllTasksFromDOM = () => {
       ? 'media'
       : 'baja';
 
-    // Recopilar etiquetas
     const tags = Array.from(taskCard.querySelectorAll('.tag')).map(tag => {
       return tag.textContent.trim();
     });

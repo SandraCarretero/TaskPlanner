@@ -1,30 +1,25 @@
 export const getDOMElements = () => {
   return {
-    // Elementos principales
     addButtonElement: document.getElementById('addTask'),
     modalElement: document.getElementById('modal'),
     modalTitleElement: document.getElementById('modal-title'),
     cancelButtonElement: document.getElementById('cancel-button'),
     saveButtonElement: document.getElementById('save-button'),
 
-    // Elementos del formulario
     titleTask: document.getElementById('task-title'),
     dateTask: document.getElementById('task-date'),
     descriptionTask: document.getElementById('task-description'),
     priorityTask: document.getElementById('task-priority'),
     statusTask: document.getElementById('task-status'),
 
-    // Modal de eliminación
     deleteModal: document.getElementById('delete-modal'),
     confirmDeleteBtn: document.getElementById('confirm-delete'),
     cancelDeleteBtn: document.getElementById('cancel-delete'),
 
-    // Información de usuario
     userNameElement: document.getElementById('title'),
     logoutBtn: document.getElementById('logout'),
     avatarElement: document.getElementById('avatar'),
 
-    // Filtrado
     filterBtn: document.getElementById('priority-filter-btn'),
     priorityOptions: document.getElementById('priority-options')
   };
@@ -67,18 +62,15 @@ export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   taskCard.className = `task-card priority-${priority}`;
   taskCard.dataset.taskId = id;
 
-  // Fecha
   const dateDiv = document.createElement('div');
   dateDiv.className = 'date';
   dateDiv.innerHTML = `<i class="fa-regular fa-calendar"></i><span>${date}</span>`;
   taskCard.appendChild(dateDiv);
 
-  // Título
   const h3 = document.createElement('h3');
   h3.textContent = title;
   taskCard.appendChild(h3);
 
-  // Etiquetas
   const tagContainer = document.createElement('div');
   tagContainer.className = 'tag-container';
   tags.forEach(tag => {
@@ -89,16 +81,13 @@ export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   });
   taskCard.appendChild(tagContainer);
 
-  // Descripción
   const p = document.createElement('p');
   p.textContent = description;
   taskCard.appendChild(p);
 
-  // Footer
   const footer = document.createElement('div');
   footer.className = `task-footer priority-${priority}`;
 
-  // Indicador de prioridad
   const priorityDiv = document.createElement('div');
   priorityDiv.className = 'priority-indicator';
   const capitalizedPriority =
@@ -108,7 +97,6 @@ export const createTaskCardElement = (taskData, onEdit, onDelete) => {
       <span class="priority-text">${capitalizedPriority}</span>
     `;
 
-  // Acciones
   const actionsDiv = document.createElement('div');
   actionsDiv.className = 'task-actions';
 
@@ -124,7 +112,6 @@ export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   footer.appendChild(actionsDiv);
   taskCard.appendChild(footer);
 
-  // Eventos
   editIcon.addEventListener('click', () => onEdit(taskCard, id));
   deleteIcon.addEventListener('click', () => onDelete(taskCard, id));
 

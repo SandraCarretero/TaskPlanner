@@ -5,12 +5,10 @@ export const capitalizeFirstLetter = str => {
 export const validateTaskForm = elements => {
   let isValid = true;
 
-  // Limpia mensajes anteriores
   document
     .querySelectorAll('.error-message')
     .forEach(el => (el.textContent = ''));
 
-  // Validar campos obligatorios
   const requiredFields = [
     { element: elements.titleTask, errorId: 'error-title' },
     { element: elements.dateTask, errorId: 'error-date' },
@@ -26,7 +24,6 @@ export const validateTaskForm = elements => {
     }
   });
 
-  // Validar etiquetas
   const selectedTags = Array.from(
     document.querySelectorAll('.tags-selection .tag.selected')
   );
@@ -64,20 +61,17 @@ export const getTaskFormData = (elements, existingId, idGenerator) => {
 };
 
 export const clearTaskForm = elements => {
-  // Limpiar campos
   elements.titleTask.value = '';
   elements.dateTask.value = '';
   elements.descriptionTask.value = '';
   elements.priorityTask.value = '';
   elements.statusTask.value = '';
 
-  // Desmarcar tags
   document.querySelectorAll('.tags-selection .tag').forEach(tag => {
     tag.classList.remove('selected');
     tag.classList.add('noselected');
   });
 
-  // Limpiar mensajes de error
   document
     .querySelectorAll('.error-message')
     .forEach(el => (el.textContent = ''));
