@@ -18,10 +18,9 @@ const deleteModal = document.getElementById('delete-modal');
 const confirmDeleteBtn = document.getElementById('confirm-delete');
 const cancelDeleteBtn = document.getElementById('cancel-delete');
 
-// Elementos de usuario
-const userNameElement = document.querySelector('.title');
-const logoutBtn = document.querySelector('.nav-item:nth-child(4)');
-const avatarElement = document.querySelector('.avatar');
+const userNameElement = document.getElementById('title');
+const logoutBtn = document.getElementById('logout');
+const avatarElement = document.getElementById('avatar');
 
 let editingTaskCard = null;
 let editingTaskId = null;
@@ -34,33 +33,28 @@ document.addEventListener('DOMContentLoaded', function () {
   loadTasks();
 });
 
-// Comprobar si hay sesión activa
-function checkSession() {
+const checkSession = () => {
   const session =
     JSON.parse(localStorage.getItem('session')) ||
     JSON.parse(sessionStorage.getItem('session'));
 
   if (!session || !session.isLoggedIn) {
-    // Si no hay sesión activa, redirigir al login
     window.location.href = 'html/login.html';
     return;
   }
 
-  // Establecer usuario actual
   currentUser = session;
 
-  // Actualizar nombre de usuario en la UI
   const firstName = currentUser.name.split(' ')[0];
   userNameElement.textContent = `Bienvenid@ ${firstName}`;
 
-  // Actualizar avatar con iniciales
   const nameParts = currentUser.name.split(' ');
   const initials =
     nameParts.length > 1
       ? `${nameParts[0].charAt(0)}${nameParts[1].charAt(0)}`
       : nameParts[0].charAt(0);
   avatarElement.textContent = initials.toUpperCase();
-}
+};
 
 // Manejar cierre de sesión
 logoutBtn.addEventListener('click', () => {
@@ -453,9 +447,8 @@ const filterTasksByPriority = priority => {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadCurrentWeather('Madrid');
+  loadHolidays();
 });
-
-document.addEventListener('DOMContentLoaded', loadHolidays);
 
 addButtonElement.addEventListener('click', () => openModal());
 cancelButtonElement.addEventListener('click', closeModal);

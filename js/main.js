@@ -1,137 +1,266 @@
-import { Modal } from './models/modal.js';
-import { Task } from './models/tasks.js';
+// Importaciones
+import { loadCurrentWeather } from './weather.js';
+import { loadHolidays } from './calendar.js';
+import {
+  getDOMElements,
+  showElement,
+  hideElement,
+  updateBadgeCount,
+  createTaskCardElement
+} from './utils/domUtils.js';
+import {
+  validateTaskForm,
+  getTaskFormData,
+  clearTaskForm,
+  capitalizeFirstLetter
+} from './utils/formUtils.js';
+import {
+  loadUserTasks,
+  saveUserTasks,
+  getAllTasksFromDOM
+} from './utils/taskStorage.js';
+import { checkUserSession, getCurrentUser, logoutUser } from './services/authService.js';
 
-// Array para almacenar las tareas
-const taskList = [];
+// Módulo de gestión de tareas
+const TaskManager = (() => {
+  // Estado local
+  let state = {
+    editingTaskId: null,
+    editingTaskCard: null,
+    taskToDelete: null,
+    currentUser: null
+  };
 
-// Referencias a elementos del DOM
-const saveButtonElement = document.getElementById('save-button');
-const titleTask = document.querySelector('#titleTask');
-const dateTask = document.querySelector('#dateTask');
-const descriptionTask = document.querySelector('#descriptionTask');
-const priorityTask = document.querySelector('#priorityTask');
-const statusTask = document.querySelector('#statusTask');
-const taskContainer = document.querySelector('.tasks');
+  // Inicialización
+  const init = () => {
+    const elements = getDOMElements();
+    bindEventListeners(elements);
 
-// Variables para editar tareas
-let editingTaskId = null;
+    // Comprobar sesión al cargar
+    state.currentUser = checkUserSession();
+    if (!state.currentUser) {
+      window.location.href = 'html/login.html';
+      return;
+    }
 
-// Función para manejar el envío del formulario (crear o editar tarea)
-const handleFormSubmit = event => {
-  event.preventDefault();
+    // Inicializar UI
+    initializeUserInterface(state.currentUser, elements);
+    loadUserTasks(state.currentUser).forEach(task => createTaskCard(task));
+    updateBadges();
 
-  const title = titleTask.value;
-  const date = dateTask.value;
-  const description = descriptionTask.value;
-  const priority = priorityTask.value;
-  const status = statusTask.value;
+    // Cargar APIs externas
+    loadCurrentWeather('Madrid');
+    loadHolidays();
+  };
 
-  // Si estamos editando una tarea, actualizamos la tarea correspondiente
-  if (editingTaskId) {
-    const updatedTask = new Task(title, description, date, priority, status);
-    updatedTask.id = editingTaskId;
-    const taskIndex = taskList.findIndex(task => task.id === editingTaskId);
-    taskList[taskIndex] = updatedTask;
-    editingTaskId = null;
-  } else {
-    // Crear una nueva tarea
-    const newTask = new Task(title, description, date, priority, status);
-    taskList.push(newTask);
-  }
+  // Inicializar interfaz de usuario con datos de sesión
+  const initializeUserInterface = (user, elements) => {
+    const firstName = user.name.split(' ')[0];
+    elements.userNameElement.textContent = `Bienvenid@ ${firstName}`;
 
-  Modal.close();
-  renderTaskList();
-};
+    const nameParts = user.name.split(' ');
+    const initials =
+      nameParts.length > 1
+        ? `${nameParts[0].charAt(0)}${nameParts[1].charAt(0)}`
+        : nameParts[0].charAt(0);
 
-// Función para renderizar las tareas en la vista
-const renderTaskList = () => {
-  taskContainer.innerHTML = ''; // Limpiar tareas anteriores
+    elements.avatarElement.textContent = initials.toUpperCase();
+  };
 
-  taskList.forEach(task => {
-    const taskCard = createTaskCard(task);
-    taskContainer.appendChild(taskCard);
-  });
-};
+  // Vinculación de event listeners
+  const bindEventListeners = elements => {
+    // Botones principales
+    elements.addButtonElement.addEventListener('click', () => openTaskModal());
+    elements.cancelButtonElement.addEventListener('click', closeTaskModal);
+    elements.saveButtonElement.addEventListener('click', saveTaskHandler);
+    elements.logoutBtn.addEventListener('click', handleLogout);
 
-// Función para crear la tarjeta de una tarea
-const createTaskCard = task => {
-  const card = document.createElement('div');
-  card.classList.add('task-card');
-  card.dataset.id = task.id;
+    // Modal de eliminación
+    elements.confirmDeleteBtn.addEventListener('click', confirmDelete);
+    elements.cancelDeleteBtn.addEventListener('click', closeDeleteModal);
 
-  card.innerHTML = `
-    <h3>${task.title}</h3>
-    <p>${task.description}</p>
-    <p><strong>Fecha:</strong> ${task.date}</p>
-    <p><strong>Prioridad:</strong> ${task.priority}</p>
-    <p><strong>Estado:</strong> ${task.status}</p>
-    <button class="edit-btn">Editar</button>
-    <button class="delete-btn">Eliminar</button>
-  `;
+    // Tags
+    document.querySelectorAll('.tags-selection .tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        tag.classList.toggle('selected');
+        tag.classList.toggle('noselected');
+      });
+    });
 
-  // Agregar eventos para editar y eliminar
-  card
-    .querySelector('.edit-btn')
-    .addEventListener('click', () => handleEditTask(task.id));
-  card
-    .querySelector('.delete-btn')
-    .addEventListener('click', () => handleDeleteTask(task.id));
+    // Filtrado
+    const filterBtn = elements.filterBtn;
+    const priorityOptions = elements.priorityOptions;
 
-  return card;
-};
+    filterBtn.addEventListener('click', () => {
+      priorityOptions.classList.toggle('show');
+    });
 
-// Función para manejar la edición de una tarea
-const handleEditTask = taskId => {
-  const taskToEdit = taskList.find(task => task.id === taskId);
+    priorityOptions.addEventListener('click', e => {
+      if (e.target.tagName === 'LI') {
+        const selectedPriority = e.target.getAttribute('data-priority');
+        filterTasksByPriority(selectedPriority);
+        priorityOptions.classList.remove('show');
+      }
+    });
+  };
 
-  if (taskToEdit) {
-    Modal.open(taskToEdit);
-    editingTaskId = taskId;
-  }
-};
+  // Handler para guardar/actualizar tarea
+  const saveTaskHandler = () => {
+    const elements = getDOMElements();
+    if (!validateTaskForm(elements)) return;
 
-// Función para manejar la eliminación de una tarea
-const handleDeleteTask = taskId => {
-  const taskIndex = taskList.findIndex(task => task.id === taskId);
+    const taskData = getTaskFormData(
+      elements,
+      state.editingTaskId,
+      generateTaskId
+    );
 
-  if (taskIndex !== -1) {
-    taskList.splice(taskIndex, 1);
-  }
+    if (state.editingTaskCard) {
+      state.editingTaskCard.remove();
+      state.editingTaskCard = null;
+    }
 
-  renderTaskList();
-};
+    createTaskCard(taskData);
+    persistTaskChanges();
+    clearTaskForm(elements);
+    closeTaskModal();
+  };
 
-// Inicializar el formulario al abrir el modal
-saveButtonElement.addEventListener('click', handleFormSubmit);
+  // Gestión de modales
+  const openTaskModal = (taskData = null, taskCard = null) => {
+    const elements = getDOMElements();
 
-// Función para cerrar el modal y limpiar el formulario
-Modal.close = () => {
-  document.querySelector('.modal').classList.add('hidden');
-  clearForm();
-};
+    if (taskData) {
+      // Modo edición
+      elements.modalTitleElement.textContent = 'Editar tarea';
+      elements.saveButtonElement.textContent = 'Actualizar tarea';
+      state.editingTaskId = taskData.id;
+      state.editingTaskCard = taskCard;
 
-// Limpiar el formulario
-const clearForm = () => {
-  titleTask.value = '';
-  dateTask.value = '';
-  descriptionTask.value = '';
-  priorityTask.value = '';
-  statusTask.value = '';
+      // Rellenar formulario con datos de la tarea
+      elements.titleTask.value = taskData.title;
+      elements.dateTask.value = taskData.date;
+      elements.descriptionTask.value = taskData.description;
+      elements.priorityTask.value = taskData.priority;
+      elements.statusTask.value = taskData.status;
 
-  document.querySelectorAll('.tags-selection .tag').forEach(tag => {
-    tag.classList.remove('selected');
-    tag.classList.add('noselected');
-  });
+      // Marcar tags seleccionados
+      document.querySelectorAll('.tags-selection .tag').forEach(tag => {
+        const tagText = tag.textContent.trim().toLowerCase();
+        if (taskData.tags.map(t => t.toLowerCase()).includes(tagText)) {
+          tag.classList.add('selected');
+          tag.classList.remove('noselected');
+        } else {
+          tag.classList.remove('selected');
+          tag.classList.add('noselected');
+        }
+      });
+    } else {
+      // Modo creación
+      elements.modalTitleElement.textContent = 'Nueva tarea';
+      elements.saveButtonElement.textContent = 'Crear tarea';
+      clearTaskForm(elements);
+      state.editingTaskId = null;
+      state.editingTaskCard = null;
+    }
 
-  document
-    .querySelectorAll('.error-message')
-    .forEach(el => (el.textContent = ''));
-};
+    showElement(elements.modalElement);
+  };
 
-// Abrir modal para nueva tarea o editar
-document
-  .querySelector('#newTaskButton')
-  .addEventListener('click', () => Modal.open());
+  const closeTaskModal = () => {
+    const elements = getDOMElements();
+    hideElement(elements.modalElement);
+    clearTaskForm(elements);
+  };
 
-// Renderizar tareas al cargar la página
-renderTaskList();
+  const openDeleteModal = (taskCard, taskId) => {
+    const elements = getDOMElements();
+    showElement(elements.deleteModal);
+    state.taskToDelete = { taskCard, taskId };
+  };
+
+  const closeDeleteModal = () => {
+    const elements = getDOMElements();
+    hideElement(elements.deleteModal);
+    state.taskToDelete = null;
+  };
+
+  const confirmDelete = () => {
+    if (state.taskToDelete) {
+      state.taskToDelete.taskCard.remove();
+      persistTaskChanges();
+      updateBadges();
+    }
+    closeDeleteModal();
+  };
+
+  // Funciones para manejo de tareas
+  const createTaskCard = taskData => {
+    const taskCard = createTaskCardElement(
+      taskData,
+      (taskCard, id) => openTaskModal(taskData, taskCard),
+      openDeleteModal
+    );
+
+    const column = document.querySelector(
+      `.task-column.${taskData.status} .tasks`
+    );
+    if (column) column.appendChild(taskCard);
+    updateBadges();
+  };
+
+  const updateBadges = () => {
+    const statuses = ['pending', 'progress', 'completed'];
+
+    statuses.forEach(status => {
+      const columnTasks = document.querySelectorAll(
+        `.task-column.${status} .task-card`
+      );
+      updateBadgeCount(`badge-${status}`, columnTasks.length);
+    });
+  };
+
+  // Mantener los cambios persistentes
+  const persistTaskChanges = () => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+
+    const allTasks = getAllTasksFromDOM();
+    saveUserTasks(currentUser, allTasks);
+  };
+
+  // Filtrado de tareas
+  const filterTasksByPriority = priority => {
+    const allTasks = document.querySelectorAll('.task-card');
+
+    allTasks.forEach(task => {
+      const taskPriority = [...task.classList]
+        .find(c => c.startsWith('priority-'))
+        ?.replace('priority-', '');
+
+      if (priority === 'all' || taskPriority === priority) {
+        task.style.display = 'block';
+      } else {
+        task.style.display = 'none';
+      }
+    });
+  };
+
+  // Cierre de sesión
+  const handleLogout = () => {
+    logoutUser();
+    window.location.href = 'html/login.html';
+  };
+
+  // Utilidad para generar ID único para tareas
+  const generateTaskId = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+  };
+
+  return {
+    init
+  };
+})();
+
+// Inicializar la aplicación cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', TaskManager.init);

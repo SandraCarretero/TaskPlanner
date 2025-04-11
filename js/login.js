@@ -6,89 +6,97 @@ const registerBox = document.getElementById('register-box');
 const loginError = document.getElementById('login-error');
 const registerError = document.getElementById('register-error');
 
-checkSession();
+const newName = document.getElementById('new-name');
+const newEmail = document.getElementById('new-email');
+const newPassword = document.getElementById('new-password');
+const confirmPassword = document.getElementById('confirm-password');
 
-showRegisterBtn.addEventListener('click', () => {
-  registerBox.classList.remove('hidden');
+document.addEventListener('DOMContentLoaded', () => {
+  initUIHandlers();
+  checkSession();
 });
 
-cancelRegisterBtn.addEventListener('click', () => {
-  registerBox.classList.add('hidden');
-  registerForm.reset();
-  registerError.classList.add('hidden');
-});
+const initUIHandlers = () => {
+  showRegisterBtn?.addEventListener('click', showRegisterForm);
+  cancelRegisterBtn?.addEventListener('click', cancelRegisterForm);
+  loginForm?.addEventListener('submit', handleLogin);
+  registerForm?.addEventListener('submit', handleRegister);
+};
 
-loginForm.addEventListener('submit', e => {
+const showRegisterForm = () => {
+  registerBox?.classList.remove('hidden');
+};
+
+const cancelRegisterForm = () => {
+  registerBox?.classList.add('hidden');
+  registerForm?.reset();
+  registerError?.classList.add('hidden');
+};
+
+const handleLogin = e => {
   e.preventDefault();
 
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const user = users.find(u => u.email === email && u.password === password);
+  const user = getUsers().find(
+    u => u.email === email && u.password === password
+  );
 
   if (user) {
-    // Guardar sesión activa
-    const sessionData = {
-      email: user.email,
-      name: user.name,
-      isLoggedIn: true,
-      timestamp: new Date().getTime()
-    };
-
-    sessionStorage.setItem('session', JSON.stringify(sessionData));
-
-    // Redireccionar a la página principal
-    window.location.href = '../index.html';
+    createSession(user);
+    redirectToHome();
   } else {
-    loginError.classList.remove('hidden');
+    document.getElementById('login-error')?.classList.remove('hidden');
   }
-});
+};
 
-// Manejar registro de usuario
-registerForm.addEventListener('submit', e => {
+const handleRegister = e => {
   e.preventDefault();
 
-  const email = document.getElementById('new-email').value.trim();
-  const name = document.getElementById('new-name').value.trim();
-  const password = document.getElementById('new-password').value;
-  const confirmPassword = document.getElementById('confirm-password').value;
+  const name = newName?.value.trim();
+  const email = newEmail?.value.trim();
+  const password = newPassword?.value;
+  const confirmPass = confirmPassword?.value;
 
-  // Restablecer clases antes de cualquier validación
-  resetFormClasses();
+  resetFormErrors();
 
-  const errorFields = [
-    'error-new-name',
-    'error-new-email',
-    'error-new-password',
-    'error-confirm-password'
-  ];
+  const { valid } = validateRegistration(
+    name,
+    email,
+    password,
+    confirmPass
+  );
 
-  errorFields.forEach(id => {
-    const el = document.getElementById(id);
-    el.textContent = '';
-    el.classList.add('hidden');
-  });
+  if (!valid) return;
 
-  document
-    .querySelectorAll('.form-control')
-    .forEach(input => input.classList.remove('wrong'));
+  const newUser = {
+    name,
+    email,
+    password,
+    createdAt: new Date().toISOString()
+  };
 
+  saveUser(newUser);
+  createEmptyTaskList(email);
+  createSession(newUser);
+  redirectToHome();
+};
+
+const validateRegistration = (name, email, password, confirmPassword) => {
   let valid = true;
 
-  if (name === '') {
+  if (!name) {
     showError('new-name', 'El nombre no puede estar vacío');
     valid = false;
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     showError('new-email', 'Introduce un correo válido');
     valid = false;
   }
 
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-  if (!passwordRegex.test(password)) {
+  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password)) {
     showError(
       'new-password',
       'La contraseña debe tener al menos 6 caracteres, incluyendo letras y números'
@@ -101,71 +109,74 @@ registerForm.addEventListener('submit', e => {
     valid = false;
   }
 
-  // Verificar si el correo ya está en uso
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  if (users.some(u => u.email === email)) {
+  if (getUsers().some(u => u.email === email)) {
     showError('new-email', 'El correo ya está en uso');
     valid = false;
   }
 
-  // Si todo es válido, guardar el nuevo usuario
-  if (valid) {
-    const newUser = {
-      email,
-      name,
-      password,
-      createdAt: new Date().toISOString()
-    };
+  return { valid };
+};
 
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+const getUsers = () => {
+  return JSON.parse(localStorage.getItem('users')) || [];
+};
 
-    // Crear estructura de tareas vacía para el nuevo usuario
-    const userTasks = {
-      tasks: []
-    };
-    localStorage.setItem(`tasks_${email}`, JSON.stringify(userTasks));
+const saveUser = user => {
+  const users = getUsers();
+  users.push(user);
+  localStorage.setItem('users', JSON.stringify(users));
+};
 
-    // Crear sesión y redirigir automáticamente al login
-    const sessionData = {
-      email: newUser.email,
-      name: newUser.name,
-      isLoggedIn: true,
-      timestamp: new Date().getTime()
-    };
+const createEmptyTaskList = email => {
+  localStorage.setItem(`tasks_${email}`, JSON.stringify({ tasks: [] }));
+};
 
-    sessionStorage.setItem('session', JSON.stringify(sessionData)); // O localStorage si se prefiere mantener sesión
+const createSession = user => {
+  const session = {
+    email: user.email,
+    name: user.name,
+    isLoggedIn: true,
+    timestamp: new Date().getTime()
+  };
+  sessionStorage.setItem('session', JSON.stringify(session));
+};
 
-    // Redirigir a la página principal
-    window.location.href = '../index.html';
+const checkSession = () => {
+  const session = JSON.parse(sessionStorage.getItem('session'));
+  if (session?.isLoggedIn) {
+    redirectToHome();
   }
-});
+};
 
 const showError = (inputId, message) => {
   const input = document.getElementById(inputId);
-  const error = document.getElementById('error-' + inputId);
-  input.classList.add('wrong');
-  error.textContent = message;
-  error.classList.remove('hidden');
+  const error = document.getElementById(`error-${inputId}`);
+  input?.classList.add('wrong');
+  if (error) {
+    error.textContent = message;
+    error.classList.remove('hidden');
+  }
 };
 
-// Función para restablecer las clases de los campos
-function resetFormClasses() {
-  document.getElementById('new-name').classList.remove('wrong');
-  document.getElementById('new-email').classList.remove('wrong');
-  document.getElementById('new-password').classList.remove('wrong');
-  document.getElementById('confirm-password').classList.remove('wrong');
-  registerError.classList.add('hidden');
-}
+const resetFormErrors = () => {
+  document
+    .querySelectorAll('.form-control')
+    .forEach(input => input.classList.remove('wrong'));
+  [
+    'error-new-name',
+    'error-new-email',
+    'error-new-password',
+    'error-confirm-password'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = '';
+      el.classList.add('hidden');
+    }
+  });
+  registerError?.classList.add('hidden');
+};
 
-// Función para verificar si hay una sesión activa
-function checkSession() {
-  const session =
-    JSON.parse(localStorage.getItem('session')) ||
-    JSON.parse(sessionStorage.getItem('session'));
-
-  if (session && session.isLoggedIn) {
-    // Si hay una sesión activa, redirigir a la página principal
-    window.location.href = '../index.html';
-  }
-}
+const redirectToHome = () => {
+  window.location.href = '../index.html';
+};

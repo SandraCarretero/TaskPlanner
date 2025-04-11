@@ -18,7 +18,7 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
-    <script type="module" defer src="js/scripts.js"></script>
+    <script defer type="module" src="js/main.js"></script>
   </head>
   <body>
     <div class="main-content">
@@ -35,14 +35,14 @@
           <i class="fas fa-user"></i>
           <span>Profile</span>
         </div>
-        <div class="nav-item">
+        <div id="logout" class="nav-item">
           <i class="fas fa-sign-out-alt"></i>
           <span>Log out</span>
         </div>
       </div>
       <div class="tasks-area">
         <div class="tasks-area-header">
-          <h1 class="title">Bienvenido Nombre</h1>
+          <h1 id="title" class="title">Bienvenido Nombre</h1>
           <div class="buttons-container">
             <div class="priority-filter">
               <button class="button" id="priority-filter-btn">
@@ -60,7 +60,7 @@
             </button>
           </div>
           <div class="profile">
-            <div class="avatar">JD</div>
+            <div id="avatar" class="avatar">JD</div>
           </div>
         </div>
         <div class="tasks-columns">
@@ -88,13 +88,14 @@
           <div class="info">
             <div class="info-card weather-card">
               <div class="weather-temp">
-                <img src="" alt="" id="weather-icon">
+                <img src="" alt="" id="weather-icon" />
                 <span id="weather-temp">26°C</span>
               </div>
             </div>
-            <div id="holidays-container" class="info-card holidays-container">
-              
-            </div>
+            <div
+              id="holidays-container"
+              class="info-card holidays-container"
+            ></div>
           </div>
         </div>
       </div>
