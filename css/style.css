@@ -27,7 +27,6 @@ body {
   color: var(--text-color);
   background-color: #f5f7fa;
   margin: 0;
-  overflow: hidden;
 }
 
 /* Main Content */
@@ -137,6 +136,7 @@ body {
 
 .tasks {
   overflow-x: auto;
+  scroll-snap-type: x mandatory;
   max-width: 90dvw;
   display: flex;
   flex-direction: row;
@@ -468,7 +468,7 @@ body {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #0000009e;
@@ -650,8 +650,12 @@ textarea.form-control {
     grid-template-columns: 1fr 1fr 1fr 18%;
     width: 100%;
   }
+
+  .title {
+    font-size: 24px;
+  }
 }
 
 /* Media Queries para desktop */
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
 }

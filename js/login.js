@@ -2,6 +2,7 @@ const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const showRegisterBtn = document.getElementById('show-register');
 const cancelRegisterBtn = document.getElementById('cancel-register');
+const loginBox = document.getElementById('login-box');
 const registerBox = document.getElementById('register-box');
 const loginError = document.getElementById('login-error');
 const registerError = document.getElementById('register-error');
@@ -25,12 +26,14 @@ const initUIHandlers = () => {
 
 const showRegisterForm = () => {
   registerBox?.classList.remove('hidden');
+  loginBox?.classList.add('hidden');
 };
 
 const cancelRegisterForm = () => {
   registerBox?.classList.add('hidden');
   registerForm?.reset();
   registerError?.classList.add('hidden');
+  loginBox?.classList.remove('hidden');
 };
 
 const handleLogin = e => {
