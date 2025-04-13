@@ -21,7 +21,9 @@ export const getDOMElements = () => {
     avatarElement: document.getElementById('avatar'),
 
     filterBtn: document.getElementById('priority-filter-btn'),
-    priorityOptions: document.getElementById('priority-options')
+    filterMenu: document.getElementById('priority-filter'),
+    priorityOptions: document.getElementById('priority-options'),
+    priorityOptionsMenu: document.getElementById('priority-options-menu')
   };
 };
 

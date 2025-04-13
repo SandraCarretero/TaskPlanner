@@ -19,7 +19,11 @@ import {
   saveUserTasks,
   getAllTasksFromDOM
 } from './utils/taskStorage.js';
-import { checkUserSession, getCurrentUser, logoutUser } from './services/authService.js';
+import {
+  checkUserSession,
+  getCurrentUser,
+  logoutUser
+} from './services/authService.js';
 
 // Módulo de gestión de tareas
 const TaskManager = (() => {
@@ -89,18 +93,27 @@ const TaskManager = (() => {
 
     // Filtrado
     const filterBtn = elements.filterBtn;
+    const filterMenu = elements.filterMenu;
     const priorityOptions = elements.priorityOptions;
+    const priorityOptionsMenu = elements.priorityOptionsMenu;
 
-    filterBtn.addEventListener('click', () => {
-      priorityOptions.classList.toggle('show');
+    const toggleButtons = [filterBtn, filterMenu];
+    const optionLists = [priorityOptions, priorityOptionsMenu];
+
+    toggleButtons.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        optionLists[index].classList.toggle('show');
+      });
     });
 
-    priorityOptions.addEventListener('click', e => {
-      if (e.target.tagName === 'LI') {
-        const selectedPriority = e.target.getAttribute('data-priority');
-        filterTasksByPriority(selectedPriority);
-        priorityOptions.classList.remove('show');
-      }
+    optionLists.forEach(list => {
+      list.addEventListener('click', e => {
+        if (e.target.tagName === 'LI') {
+          const selectedPriority = e.target.getAttribute('data-priority');
+          filterTasksByPriority(selectedPriority);
+          list.classList.remove('show');
+        }
+      });
     });
   };
 
