@@ -75,6 +75,7 @@ const TaskManager = (() => {
   const bindEventListeners = elements => {
     // Botones principales
     elements.addButtonElement.addEventListener('click', () => openTaskModal());
+    elements.addButtonMenuElement.addEventListener('click', () => openTaskModal());
     elements.cancelButtonElement.addEventListener('click', closeTaskModal);
     elements.saveButtonElement.addEventListener('click', saveTaskHandler);
     elements.logoutBtn.addEventListener('click', handleLogout);
@@ -146,7 +147,7 @@ const TaskManager = (() => {
     if (taskData) {
       // Modo edición
       elements.modalTitleElement.textContent = 'Editar tarea';
-      elements.saveButtonElement.textContent = 'Actualizar tarea';
+      elements.saveButtonElement.textContent = 'Actualizar';
       state.editingTaskId = taskData.id;
       state.editingTaskCard = taskCard;
 

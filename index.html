@@ -2,7 +2,10 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
 
     <title>Task Planner</title>
 
@@ -24,21 +27,28 @@
   <body>
     <div class="main-content">
       <div class="sidebar">
-        <div class="nav-item active">
-          <i class="fas fa-tasks"></i>
-          <span class="hidden-mobile">Tasks</span>
-        </div>
-        <div class="nav-item">
-          <i class="fas fa-user"></i>
-          <span class="hidden-mobile">Perfil</span>
-        </div>
-        <div class="nav-item hidden-desktop">
-          <i class="fa-solid fa-plus"></i>          
+        <a href="index.html">
+          <div class="nav-item active">
+            <i class="fas fa-tasks"></i>
+            <span class="hidden-mobile">Tasks</span>
+          </div>
+        </a>
+        <a href="html/profile.html">
+          <div class="nav-item">
+            <i class="fas fa-user"></i>
+            <span class="hidden-mobile">Perfil</span>
+          </div>
+        </a>
+        <div id="addTaskMenu" class="nav-item hidden-desktop">
+          <i class="fa-solid fa-plus"></i>
         </div>
         <div id="priority-filter" class="nav-item hidden-desktop">
           <i class="fas fa-filter"></i>
           <span class="hidden-mobile">Filtrar</span>
-          <ul id="priority-options-menu" class="priority-options priority-options-menu hidden">
+          <ul
+            id="priority-options-menu"
+            class="priority-options priority-options-menu hidden"
+          >
             <li data-priority="all">Todas</li>
             <li data-priority="alta">Alta</li>
             <li data-priority="media">Media</li>
@@ -50,7 +60,7 @@
           <span class="hidden-mobile">Salir</span>
         </div>
       </div>
-      <div class="tasks-area">
+      <div class="main-area">
         <div class="tasks-area-header">
           <h1 id="title" class="title">Bienvenido Nombre</h1>
           <div class="buttons-container">
@@ -196,8 +206,8 @@
       <div class="modal-content">
         <h2>¿Eliminar tarea?</h2>
         <p>
-          ¿Estás seguro de que deseas eliminar esta tarea?<br>Esta acción no se
-          puede deshacer.
+          ¿Estás seguro de que deseas eliminar esta tarea?<br />Esta acción no
+          se puede deshacer.
         </p>
         <div class="modal-actions">
           <button id="confirm-delete" class="btn danger">Eliminar</button>

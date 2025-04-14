@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil de Usuario</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/profile.css" />
+
+  </head>
+  <body>
+    <div class="main-content">
+      <div class="sidebar">
+        <a href="../index.html">
+          <div class="nav-item">
+            <i class="fas fa-tasks"></i>
+            <span class="hidden-mobile">Tasks</span>
+          </div>
+        </a>
+        <a href="profile.html">
+          <div class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span class="hidden-mobile">Perfil</span>
+          </div>
+        </a>
+        <div id="addTaskMenu" class="nav-item hidden-desktop">
+          <i class="fa-solid fa-plus"></i>
+        </div>
+        <div id="priority-filter" class="nav-item hidden-desktop">
+          <i class="fas fa-filter"></i>
+          <span class="hidden-mobile">Filtrar</span>
+          <ul
+            id="priority-options-menu"
+            class="priority-options priority-options-menu hidden"
+          >
+            <li data-priority="all">Todas</li>
+            <li data-priority="alta">Alta</li>
+            <li data-priority="media">Media</li>
+            <li data-priority="baja">Baja</li>
+          </ul>
+        </div>
+        <div id="logout" class="nav-item">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="hidden-mobile">Salir</span>
+        </div>
+      </div>
+      <main class="main-area profile-container">
+        <div class="avatar" id="user-avatar">AB</div>
+
+        <form id="profile-form">
+          <div class="form-group">
+            <label for="username">Nombre</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <button type="submit" class="btn save-btn">Guardar cambios</button>
+        </form>
+
+        <button id="delete-user" class="btn delete-btn">Eliminar cuenta</button>
+      </main>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="confirm-modal" class="modal hidden">
+      <div class="modal-content">
+        <p>
+          ¿Estás segura de que quieres eliminar tu cuenta? Esta acción no se
+          puede deshacer.
+        </p>
+        <button id="confirm-delete" class="btn danger">Sí, eliminar</button>
+        <button id="cancel-delete" class="btn">Cancelar</button>
+      </div>
+    </div>
+
+    <script src="profile.js"></script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 export const getDOMElements = () => {
   return {
     addButtonElement: document.getElementById('addTask'),
+    addButtonMenuElement: document.getElementById('addTaskMenu'),
     modalElement: document.getElementById('modal'),
     modalTitleElement: document.getElementById('modal-title'),
     cancelButtonElement: document.getElementById('cancel-button'),
@@ -42,21 +43,6 @@ export const updateBadgeCount = (badgeId, count) => {
   }
 };
 
-export const getTagIcon = tag => {
-  const iconMap = {
-    trabajo: 'fas fa-briefcase fa-xs',
-    documentación: 'fas fa-file-alt fa-xs',
-    documentacion: 'fas fa-file-alt fa-xs',
-    diseño: 'fas fa-paint-brush fa-xs',
-    personal: 'fas fa-user fa-xs',
-    reunión: 'fas fa-users fa-xs',
-    reunion: 'fas fa-users fa-xs',
-    desarrollo: 'fas fa-code fa-xs'
-  };
-
-  return iconMap[tag.toLowerCase()] || 'fas fa-tag fa-xs';
-};
-
 export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   const { id, title, date, tags, description, priority, status } = taskData;
 
@@ -78,7 +64,7 @@ export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   tags.forEach(tag => {
     const tagEl = document.createElement('span');
     tagEl.className = `tag tag-${tag.toLowerCase()}`;
-    tagEl.innerHTML = `<i class="${getTagIcon(tag)}"></i>&nbsp;${tag}`;
+    tagEl.innerHTML = `${tag}`;
     tagContainer.appendChild(tagEl);
   });
   taskCard.appendChild(tagContainer);
