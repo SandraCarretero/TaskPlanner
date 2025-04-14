@@ -49,6 +49,7 @@ export const getAllTasksFromDOM = () => {
       priority: taskPriority,
       status: status,
       tags: tags,
+      isHoliday: taskCard.classList.contains('card-holiday'),
       updatedAt: new Date().toISOString()
     });
   });

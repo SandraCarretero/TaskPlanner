@@ -1,6 +1,6 @@
 // Importaciones
 import { loadCurrentWeather } from './weather.js';
-import { loadHolidays } from './calendar.js';
+import { loadHolidays, holidaysList } from './calendar.js';
 import {
   getDOMElements,
   showElement,
@@ -75,7 +75,9 @@ const TaskManager = (() => {
   const bindEventListeners = elements => {
     // Botones principales
     elements.addButtonElement.addEventListener('click', () => openTaskModal());
-    elements.addButtonMenuElement.addEventListener('click', () => openTaskModal());
+    elements.addButtonMenuElement.addEventListener('click', () =>
+      openTaskModal()
+    );
     elements.cancelButtonElement.addEventListener('click', closeTaskModal);
     elements.saveButtonElement.addEventListener('click', saveTaskHandler);
     elements.logoutBtn.addEventListener('click', handleLogout);
@@ -128,6 +130,19 @@ const TaskManager = (() => {
       state.editingTaskId,
       generateTaskId
     );
+
+    if (state.editingTaskCard) {
+      state.editingTaskCard.remove();
+      state.editingTaskCard = null;
+    }
+
+    const isHoliday = holidaysList.some(holiday => {
+      const taskDate = new Date(taskData.date).toDateString();
+      const holidayDate = new Date(holiday.date).toDateString();
+      return taskDate === holidayDate;
+    });
+
+    taskData.isHoliday = isHoliday;
 
     if (state.editingTaskCard) {
       state.editingTaskCard.remove();
@@ -215,6 +230,10 @@ const TaskManager = (() => {
       (taskCard, id) => openTaskModal(taskData, taskCard),
       openDeleteModal
     );
+
+    if (taskData.isHoliday) {
+      taskCard.classList.add('card-holiday');
+    }
 
     const column = document.querySelector(
       `.task-column.${taskData.status} .tasks`

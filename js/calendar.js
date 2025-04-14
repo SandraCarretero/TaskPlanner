@@ -22,6 +22,9 @@ const renderHoliday = holiday => {
   holidaysContainer.appendChild(holidayCard);
 };
 
+// calendar.js
+export let holidaysList = [];
+
 export const loadHolidays = async () => {
   const holidays = await calendarService.getHolidays();
   const today = new Date();
@@ -29,10 +32,12 @@ export const loadHolidays = async () => {
   if (holidays.length > 0) {
     const upcomingHolidays = holidays
       .filter(holiday => new Date(holiday.date) > today)
-      .sort((a, b) => new Date(a.date) - new Date(b.date)); 
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    holidaysContainer.innerHTML = ''; 
-    upcomingHolidays.slice(0, 3).forEach(holiday => renderHoliday(holiday)); 
+    holidaysList = holidays; // Guardamos todos los festivos para compararlos luego
+
+    holidaysContainer.innerHTML = '';
+    upcomingHolidays.slice(0, 3).forEach(holiday => renderHoliday(holiday));
   } else {
     holidaysContainer.innerHTML = '<p>No holidays found</p>';
   }

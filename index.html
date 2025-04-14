@@ -22,6 +22,7 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
     <script defer type="module" src="js/main.js"></script>
   </head>
   <body>
@@ -79,9 +80,11 @@
               <i class="fa-solid fa-plus"></i>Nueva tarea
             </button>
           </div>
-          <div class="profile">
-            <div id="avatar" class="avatar">JD</div>
-          </div>
+          <a href="./html/profile.html">
+            <div class="profile">
+              <div id="avatar" class="avatar">JD</div>
+            </div>
+          </a>
         </div>
         <div class="tasks-columns">
           <div class="task-column pending">
@@ -149,23 +152,17 @@
             <button class="tag tag-trabajo noselected" data-tag="trabajo">
               Trabajo
             </button>
-            <button class="tag tag-diseño noselected" data-tag="diseño">
-              Diseño
-            </button>
             <button class="tag tag-personal noselected" data-tag="personal">
               Personal
-            </button>
-            <button class="tag tag-desarrollo noselected" data-tag="desarrollo">
-              Desarrollo
             </button>
             <button class="tag tag-reunión noselected" data-tag="reunión">
               Reunión
             </button>
             <button
-              class="tag tag-documentacion noselected"
-              data-tag="documentación"
+              class="tag tag-ocio noselected"
+              data-tag="ocio"
             >
-              Documentación
+              Ocio
             </button>
           </div>
           <div class="error-message" id="error-tags"></div>
