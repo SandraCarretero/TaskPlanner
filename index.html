@@ -31,31 +31,25 @@
         <a href="index.html">
           <div class="nav-item active">
             <i class="fas fa-tasks"></i>
-            <span class="hidden-mobile">Tasks</span>
+            <span class="hidden-mobile">Tareas</span>
           </div>
         </a>
+        <a href="index.html">
+          <div class="nav-item">
+            <i class="fas fa-calendar"></i>
+            <span class="hidden-mobile">Eventos</span>
+          </div>
+        </a>
+        <div id="addTaskMenu" class="nav-item nav-plus hidden-desktop">
+          <i class="fa-solid fa-plus"></i>
+        </div>
         <a href="html/profile.html">
           <div class="nav-item">
             <i class="fas fa-user"></i>
             <span class="hidden-mobile">Perfil</span>
           </div>
         </a>
-        <div id="addTaskMenu" class="nav-item hidden-desktop">
-          <i class="fa-solid fa-plus"></i>
-        </div>
-        <div id="priority-filter" class="nav-item hidden-desktop">
-          <i class="fas fa-filter"></i>
-          <span class="hidden-mobile">Filtrar</span>
-          <ul
-            id="priority-options-menu"
-            class="priority-options priority-options-menu hidden"
-          >
-            <li data-priority="all">Todas</li>
-            <li data-priority="alta">Alta</li>
-            <li data-priority="media">Media</li>
-            <li data-priority="baja">Baja</li>
-          </ul>
-        </div>
+
         <div id="logout" class="nav-item">
           <i class="fas fa-sign-out-alt"></i>
           <span class="hidden-mobile">Salir</span>
@@ -80,11 +74,19 @@
               <i class="fa-solid fa-plus"></i>Nueva tarea
             </button>
           </div>
-          <a href="./html/profile.html">
-            <div class="profile">
-              <div id="avatar" class="avatar">JD</div>
+          <div class="info">
+            <div class="info-card weather-card">
+              <div class="weather-temp">
+                <img src="" alt="" id="weather-icon" class="weather-icon" />
+                <span id="weather-temp">26°C</span>
+              </div>
             </div>
-          </a>
+            <a href="./html/profile.html">
+              <div class="profile">
+                <div id="avatar" class="avatar">JD</div>
+              </div>
+            </a>
+          </div>
         </div>
         <div class="tasks-columns">
           <div class="task-column pending">
@@ -108,17 +110,18 @@
             </div>
             <div class="tasks"></div>
           </div>
-          <div class="info">
-            <div class="info-card weather-card">
-              <div class="weather-temp">
-                <img src="" alt="" id="weather-icon" />
-                <span id="weather-temp">26°C</span>
-              </div>
-            </div>
-            <div
-              id="holidays-container"
-              class="info-card holidays-container"
-            ></div>
+          <div id="news" class="news">
+            <h3><i class="fa-regular fa-newspaper"></i>Noticias</h3>
+            <form id="news-search-form" class="news-search-form">
+              <input
+                type="text"
+                id="news-search"
+                class="news-search"
+                placeholder="Buscar por tema"
+              />
+              <button type="submit" class="button button--small">Buscar</button>
+            </form>
+            <div id="news-container" class="news-container"></div>
           </div>
         </div>
       </div>
@@ -158,10 +161,7 @@
             <button class="tag tag-reunión noselected" data-tag="reunión">
               Reunión
             </button>
-            <button
-              class="tag tag-ocio noselected"
-              data-tag="ocio"
-            >
+            <button class="tag tag-ocio noselected" data-tag="ocio">
               Ocio
             </button>
           </div>

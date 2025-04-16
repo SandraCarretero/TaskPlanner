@@ -1,6 +1,7 @@
 // Importaciones
 import { loadCurrentWeather } from './weather.js';
-import { loadHolidays, holidaysList } from './calendar.js';
+import { loadNews } from './news.js';
+
 import {
   getDOMElements,
   showElement,
@@ -11,8 +12,7 @@ import {
 import {
   validateTaskForm,
   getTaskFormData,
-  clearTaskForm,
-  capitalizeFirstLetter
+  clearTaskForm
 } from './utils/formUtils.js';
 import {
   loadUserTasks,
@@ -54,7 +54,7 @@ const TaskManager = (() => {
 
     // Cargar APIs externas
     loadCurrentWeather('Madrid');
-    loadHolidays();
+    loadNews();
   };
 
   // Inicializar interfaz de usuario con datos de sesión
@@ -96,27 +96,18 @@ const TaskManager = (() => {
 
     // Filtrado
     const filterBtn = elements.filterBtn;
-    const filterMenu = elements.filterMenu;
     const priorityOptions = elements.priorityOptions;
-    const priorityOptionsMenu = elements.priorityOptionsMenu;
 
-    const toggleButtons = [filterBtn, filterMenu];
-    const optionLists = [priorityOptions, priorityOptionsMenu];
-
-    toggleButtons.forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        optionLists[index].classList.toggle('show');
-      });
+    filterBtn.addEventListener('click', () => {
+      priorityOptions.classList.toggle('show');
     });
 
-    optionLists.forEach(list => {
-      list.addEventListener('click', e => {
-        if (e.target.tagName === 'LI') {
-          const selectedPriority = e.target.getAttribute('data-priority');
-          filterTasksByPriority(selectedPriority);
-          list.classList.remove('show');
-        }
-      });
+    priorityOptions.addEventListener('click', e => {
+      if (e.target.tagName === 'LI') {
+        const selectedPriority = e.target.getAttribute('data-priority');
+        filterTasksByPriority(selectedPriority);
+        priorityOptions.classList.remove('show');
+      }
     });
   };
 
@@ -135,14 +126,6 @@ const TaskManager = (() => {
       state.editingTaskCard.remove();
       state.editingTaskCard = null;
     }
-
-    const isHoliday = holidaysList.some(holiday => {
-      const taskDate = new Date(taskData.date).toDateString();
-      const holidayDate = new Date(holiday.date).toDateString();
-      return taskDate === holidayDate;
-    });
-
-    taskData.isHoliday = isHoliday;
 
     if (state.editingTaskCard) {
       state.editingTaskCard.remove();
@@ -231,14 +214,19 @@ const TaskManager = (() => {
       openDeleteModal
     );
 
-    if (taskData.isHoliday) {
-      taskCard.classList.add('card-holiday');
-    }
-
     const column = document.querySelector(
       `.task-column.${taskData.status} .tasks`
     );
-    if (column) column.appendChild(taskCard);
+    if (column) {
+      const allTaskCards = Array.from(column.children);
+      allTaskCards.push(taskCard); // Agregar la nueva tarea
+      allTaskCards.sort((a, b) => {
+        const dateA = new Date(a.querySelector('.date span').textContent);
+        const dateB = new Date(b.querySelector('.date span').textContent);
+        return dateA - dateB; // Orden ascendente
+      });
+      allTaskCards.forEach(card => column.appendChild(card));
+    }
     updateBadges();
   };
 
@@ -259,6 +247,13 @@ const TaskManager = (() => {
     if (!currentUser) return;
 
     const allTasks = getAllTasksFromDOM();
+
+    allTasks.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB;
+    });
+
     saveUserTasks(currentUser, allTasks);
   };
 
