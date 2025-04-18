@@ -1,4 +1,5 @@
 import { checkUserSession, logoutUser } from './services/authService.js';
+import { renderTagSummaryCards } from './utils/taskCounter.js';
 
 // Elementos del DOM
 const passwordInput = document.getElementById('password'); // Añadir este elemento
@@ -36,6 +37,8 @@ const initializeApp = () => {
 
   // Inicializar event listeners
   bindEventListeners();
+
+  renderTagSummaryCards(currentUser);
 };
 
 // Cargar datos del usuario actual

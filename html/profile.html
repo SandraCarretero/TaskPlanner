@@ -2,8 +2,14 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
     <title>Perfil de Usuario</title>
+
+    <link rel="shortcut icon" href="../img/icon.svg" type="image/x-icon" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,6 +31,12 @@
   <body>
     <div class="main-content">
       <div class="sidebar">
+        <a href="index.html" class="hidden-mobile">
+          <div class="nav-item logo">
+            <img src="../img/icon.svg" alt="" class="logo-img" />
+            <span>Flowtask</span>
+          </div>
+        </a>
         <a href="../index.html">
           <div class="nav-item">
             <i class="fas fa-tasks"></i>
@@ -52,57 +64,88 @@
           <span class="hidden-mobile">Salir</span>
         </div>
       </div>
-      <main class="main-area profile-container">
-        <div class="avatar" id="user-avatar">AB</div>
-
-        <form id="profile-form">
-          <div class="form-group">
-            <label for="username">Nombre</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              disabled
-            />
+      <div class="main-area main-area-profile">
+        <div class="tasks-area-header hidden-desktop">
+          <div class="logo hidden-desktop">
+            <img src="../img/icon.svg" alt="" class="logo-img" />
+            <span>Flowtask</span>
           </div>
-
-          <div class="form-group">
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" required disabled />
-          </div>
-
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              disabled
-            />
-          </div>
-        </form>
-
-        <div class="form-group">
-          <button id="edit-btn" class="btn edit-btn">Editar</button>
-          <button id="update-btn" class="btn update-btn" disabled>
-            Guardar
-          </button>
-          <button id="delete-user" class="btn delete-btn">Eliminar</button>
         </div>
-      </main>
+        <main class="main-area profile-container">
+          <div class="avatar" id="user-avatar">AB</div>
+  
+          <form id="profile-form">
+            <div class="form-group">
+              <label for="username">Nombre</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                disabled
+              />
+            </div>
+  
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" required disabled />
+            </div>
+  
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                disabled
+              />
+            </div>
+          </form>
+  
+          <div class="form-group">
+            <button id="edit-btn" class="btn edit-btn">Editar</button>
+            <button id="update-btn" class="btn update-btn" disabled>
+              Guardar
+            </button>
+            <button id="delete-user" class="btn delete-btn">Eliminar</button>
+          </div>
+        </main>
+        <div id="project-cards-container" class="project-cards-container">
+          <div class="project-card">
+            <div class="project-info">
+              <div class="icon-container">
+                <img src="https://img.icons8.com/ios-filled/50/briefcase.png" alt="Project Icon" />
+              </div>
+              <div class="text-info">
+                <h4>Office Project</h4>
+                <p>23 Tasks</p>
+              </div>
+            </div>
+            <div class="progress-circle">
+              <svg width="50" height="50">
+                <circle cx="25" cy="25" r="22" stroke="#f3f3f3" stroke-width="5" fill="none" />
+                <circle cx="25" cy="25" r="22" stroke="#f06292" stroke-width="5" fill="none"
+                  stroke-dasharray="138.2" stroke-dashoffset="41.46" stroke-linecap="round" />
+              </svg>
+              <div class="progress-text">70%</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
     </div>
 
     <!-- Modal de confirmación -->
     <div id="confirm-modal" class="modal hidden">
       <div class="modal-content">
+        <h2>¿Eliminar usuario?</h2>
         <p>
-          ¿Estás segura de que quieres eliminar tu cuenta? Esta acción no se
+          ¿Estás segura de que quieres eliminar tu cuenta? <br> Esta acción no se
           puede deshacer.
         </p>
-        <button id="confirm-delete" class="btn danger">Sí, eliminar</button>
-        <button id="cancel-delete" class="btn">Cancelar</button>
+        <button id="confirm-delete" class="btn danger">Eliminar</button>
+        <button id="cancel-delete" class="btn btn-outline">Cancelar</button>
       </div>
     </div>
   </body>

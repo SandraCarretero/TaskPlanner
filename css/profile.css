@@ -1,131 +1,200 @@
 .profile-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 25px;
-    background-color: #f7f7f7;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .avatar {
-    width: 100px;
-    height: 100px;
-    background: #ddd;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 28px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .avatar:hover {
-    background-color: #2196f3;
-  }
-  
-  .form-group {
-    margin-bottom: 25px;
-    text-align: left;
-  }
-  
-  .form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
-  
-  input:focus {
-    border-color: #2196f3;
-    outline: none;
-  }
-  
-  input:disabled {
-    background-color: #f0f0f0;
-    color: #888;
-  }
-  
-  .btn {
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .edit-btn {
-    background-color: #2196f3;
-    color: white;
-  }
-  
+  max-width: 500px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  height: max-content;
+  margin-top: 12px;
+}
+
+.main-area-profile {
+  display: flex;
+}
+
+.avatar {
+  width: 85px;
+  aspect-ratio: 1;
+  background-color: #2196f3;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 28px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  transition: background-color 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.btn:disabled {
+  cursor: no-drop;
+  color: #cccccc;
+  background: #fff;
+  outline: 1px solid #cccccc;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+input:disabled {
+  background-color: #f0f0f0;
+  color: #888;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
+.update-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  margin-top: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+@media (hover: hover) {
   .edit-btn:hover {
     background-color: #1976d2;
     transform: translateY(-2px);
   }
-  
-  .save-btn {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .save-btn:hover {
+
+  .update-btn:not(:disabled):hover {
     background-color: #45a049;
     transform: translateY(-2px);
   }
-  
-  .delete-btn {
-    margin-top: 20px;
-    background-color: #f44336;
-    color: white;
-  }
-  
+
   .delete-btn:hover {
     background-color: #d32f2f;
     transform: translateY(-2px);
   }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.project-cards-container {
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: max-content;
+}
+
+.project-card {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #fefefe, #f8f8f8);
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  font-family: sans-serif;
+}
+
+.project-info {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container {
+  background-color: #fde9f2;
+  padding: 12px;
+  border-radius: 12px;
+  margin-right: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.icon-container i {
+  width: 24px;
+  height: auto;
+}
+
+.text-info h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.text-info p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.progress-circle {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: #929292;
+}
+
+/* Media Queries para laptops */
+@media (min-width: 1024px) {
+  .profile-container {
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  .project-cards-container {
+    max-width: 600px;
+    justify-content: space-around;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
   }
-  
-  .modal-content {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    max-width: 350px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  .project-card {
+    width: 40%;
   }
-  
-  .hidden {
-    display: none;
-  }
-  
-  .danger {
-    background-color: #d32f2f;
-    color: white;
-    font-weight: bold;
-  }
-  
+}
+
+/* Media Queries para desktop */
+@media (min-width: 1281px) {
+}

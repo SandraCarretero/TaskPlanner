@@ -1,3 +1,12 @@
+:root {
+  --Personal: #2196f3;
+  --Trabajo: #ff9800;
+  --Reunión: #f44336;
+  --Ocio: #9c27b0;
+  --Salud: #009688;
+  --Otros: #795548;
+}
+
 *,
 *::after,
 *::before {
@@ -35,8 +44,6 @@ body {
   grid-template-columns: 1fr;
 }
 
-/* Sidebar */
-
 /* Columnas tareas */
 
 .tasks-area-header {
@@ -54,8 +61,8 @@ body {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  width: 100%;
   margin-block: 4px;
+  font-size: 25px;
 }
 
 .buttons-container {
@@ -79,7 +86,7 @@ body {
 
 .button--small {
   padding: 9px 9px;
-  font-size: 10px;
+  font-size: 12px;
   display: inline;
   border-radius: 50px;
 }
@@ -257,6 +264,10 @@ body {
   margin-right: 5px;
 }
 
+.priority-todas .priority-dot {
+  border: 1px solid blue;
+}
+
 .priority-alta .priority-dot {
   background-color: #f5222d;
 }
@@ -323,19 +334,27 @@ body {
 }
 
 .tag-trabajo {
-  background-color: #ff9800; /* Naranja */
+  background-color: #ff9800;
 }
 
 .tag-personal {
-  background-color: #2196f3; /* Azul */
+  background-color: #2196f3;
 }
 
 .tag-reunión {
-  background-color: #f44336; /* Rojo */
+  background-color: #f44336;
 }
 
 .tag-ocio {
-  background-color: #795548; /* Marrón */
+  background-color: #9c27b0;
+}
+
+.tag-salud {
+  background-color: #009688;
+}
+
+.tag-otros {
+  background-color: #795548;
 }
 
 /* Botón de agregar tarea */
@@ -424,6 +443,7 @@ body {
   width: 95%;
   margin: 0 auto;
   background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 8px;
   height: 82dvh;
@@ -508,7 +528,6 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin-top: 20px;
   max-width: 480px;
 }
 
@@ -534,6 +553,7 @@ body {
   cursor: pointer;
   font-size: 14px;
   transition: background 0.3s;
+  color: black;
 }
 
 .btn-primary {
@@ -625,6 +645,7 @@ textarea.form-control {
   background-color: white;
   position: absolute;
   z-index: 10;
+  width: 98px;
 }
 
 .priority-options-menu {
@@ -634,6 +655,8 @@ textarea.form-control {
 .priority-options li {
   padding: 8px 12px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .priority-options li:hover {
@@ -656,6 +679,10 @@ textarea.form-control {
     gap: 13px;
     max-height: 100dvh;
     overflow: hidden;
+  }
+
+  .button--small {
+    font-size: 10px;
   }
 
   .tasks-area-header {
@@ -724,6 +751,10 @@ textarea.form-control {
   body {
     height: 100dvh;
     max-height: 100dvh;
+  }
+
+  .button--small {
+    font-size: 12px;
   }
 
   .main-content {

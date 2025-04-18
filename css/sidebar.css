@@ -20,6 +20,23 @@
   transition: background 0.3s;
 }
 
+.logo {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  padding-block: 0;
+  margin-block: 5px;
+  padding-left: 0;
+  font-weight: bolder;
+  color: #115262;
+  font-size: 30px;
+}
+
+.logo-img {
+  width: 30px;
+}
+
 .nav-plus {
   background: blue;
   border-radius: 50px;
@@ -27,6 +44,8 @@
   position: relative;
   bottom: 20px;
   color: white;
+  aspect-ratio: 1;
+  width: 42px;
 }
 
 .hidden-mobile {
@@ -79,5 +98,27 @@
 
   .nav-item i {
     margin-right: 5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    margin-block: 0 15px;
+    font-size: 18px;
+  }
+
+  .logo-img {
+    width: 22px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .logo {
+    font-size: 30px;
+    margin-block: 0 30px;
+  }
+
+  .logo-img {
+    width: 35px;
   }
 }

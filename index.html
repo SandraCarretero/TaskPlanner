@@ -9,6 +9,8 @@
 
     <title>Task Planner</title>
 
+    <link rel="shortcut icon" href="img/icon.svg" type="image/x-icon" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,6 +30,12 @@
   <body>
     <div class="main-content">
       <div class="sidebar">
+        <a href="index.html" class="hidden-mobile">
+          <div class="nav-item logo">
+            <img src="img/icon.svg" alt="" class="logo-img" />
+            <span>Flowtask</span>
+          </div>
+        </a>
         <a href="index.html">
           <div class="nav-item active">
             <i class="fas fa-tasks"></i>
@@ -57,6 +65,10 @@
       </div>
       <div class="main-area">
         <div class="tasks-area-header">
+          <div class="logo hidden-desktop">
+            <img src="img/icon.svg" alt="" class="logo-img" />
+            <span>Flowtask</span>
+          </div>
           <h1 id="title" class="title">Bienvenido Nombre</h1>
           <div class="buttons-container">
             <div class="priority-filter">
@@ -64,10 +76,18 @@
                 <i class="fa-solid fa-filter"></i> Filtrar
               </button>
               <ul id="priority-options" class="priority-options hidden">
-                <li data-priority="all">Todas</li>
-                <li data-priority="alta">Alta</li>
-                <li data-priority="media">Media</li>
-                <li data-priority="baja">Baja</li>
+                <li data-priority="all" class="priority-todas">
+                  <span class="priority-dot priority-todas"></span>Todas
+                </li>
+                <li data-priority="alta" class="priority-alta">
+                  <span class="priority-dot priority-alta"></span>Alta
+                </li>
+                <li data-priority="media" class="priority-media">
+                  <span class="priority-dot priority-media"></span>Media
+                </li>
+                <li data-priority="baja" class="priority-baja">
+                  <span class="priority-dot priority-baja"></span>Baja
+                </li>
               </ul>
             </div>
             <button class="button" id="addTask">
@@ -163,6 +183,12 @@
             </button>
             <button class="tag tag-ocio noselected" data-tag="ocio">
               Ocio
+            </button>
+            <button class="tag tag-salud noselected" data-tag="salud">
+              Salud
+            </button>
+            <button class="tag tag-otros noselected" data-tag="otros">
+              Otros
             </button>
           </div>
           <div class="error-message" id="error-tags"></div>
