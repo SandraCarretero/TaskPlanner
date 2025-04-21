@@ -1,4 +1,3 @@
-// Importaciones
 import { loadCurrentWeather } from './weather.js';
 import { loadNews } from './news.js';
 
@@ -21,13 +20,10 @@ import {
 } from './utils/taskStorage.js';
 import {
   checkUserSession,
-  getCurrentUser,
-  logoutUser
+  getCurrentUser
 } from './services/authService.js';
 
-// Módulo de gestión de tareas
 const TaskManager = (() => {
-  // Estado local
   let state = {
     editingTaskId: null,
     editingTaskCard: null,
@@ -35,29 +31,24 @@ const TaskManager = (() => {
     currentUser: null
   };
 
-  // Inicialización
   const init = () => {
     const elements = getDOMElements();
     bindEventListeners(elements);
 
-    // Comprobar sesión al cargar
     state.currentUser = checkUserSession();
     if (!state.currentUser) {
       window.location.href = 'html/login.html';
       return;
     }
 
-    // Inicializar UI
     initializeUserInterface(state.currentUser, elements);
     loadUserTasks(state.currentUser).forEach(task => createTaskCard(task));
     updateBadges();
 
-    // Cargar APIs externas
     loadCurrentWeather('Madrid');
     loadNews();
   };
 
-  // Inicializar interfaz de usuario con datos de sesión
   const initializeUserInterface = (user, elements) => {
     const firstName = user.name.split(' ')[0];
     elements.userNameElement.textContent = `Bienvenid@ ${firstName}`;
@@ -71,9 +62,7 @@ const TaskManager = (() => {
     elements.avatarElement.textContent = initials.toUpperCase();
   };
 
-  // Vinculación de event listeners
   const bindEventListeners = elements => {
-    // Botones principales
     elements.addButtonElement.addEventListener('click', () => openTaskModal());
     elements.addButtonMenuElement.addEventListener('click', () =>
       openTaskModal()
@@ -81,11 +70,9 @@ const TaskManager = (() => {
     elements.cancelButtonElement.addEventListener('click', closeTaskModal);
     elements.saveButtonElement.addEventListener('click', saveTaskHandler);
 
-    // Modal de eliminación
     elements.confirmDeleteBtn.addEventListener('click', confirmDelete);
     elements.cancelDeleteBtn.addEventListener('click', closeDeleteModal);
 
-    // Tags
     document.querySelectorAll('.tags-selection .tag').forEach(tag => {
       tag.addEventListener('click', () => {
         tag.classList.toggle('selected');
@@ -93,7 +80,6 @@ const TaskManager = (() => {
       });
     });
 
-    // Filtrado
     const filterBtn = elements.filterBtn;
     const priorityOptions = elements.priorityOptions;
 
@@ -110,7 +96,6 @@ const TaskManager = (() => {
     });
   };
 
-  // Handler para guardar/actualizar tarea
   const saveTaskHandler = () => {
     const elements = getDOMElements();
     if (!validateTaskForm(elements)) return;
@@ -137,25 +122,21 @@ const TaskManager = (() => {
     closeTaskModal();
   };
 
-  // Gestión de modales
   const openTaskModal = (taskData = null, taskCard = null) => {
     const elements = getDOMElements();
 
     if (taskData) {
-      // Modo edición
       elements.modalTitleElement.textContent = 'Editar tarea';
       elements.saveButtonElement.textContent = 'Actualizar';
       state.editingTaskId = taskData.id;
       state.editingTaskCard = taskCard;
 
-      // Rellenar formulario con datos de la tarea
       elements.titleTask.value = taskData.title;
       elements.dateTask.value = taskData.date;
       elements.descriptionTask.value = taskData.description;
       elements.priorityTask.value = taskData.priority;
       elements.statusTask.value = taskData.status;
 
-      // Marcar tags seleccionados
       document.querySelectorAll('.tags-selection .tag').forEach(tag => {
         const tagText = tag.textContent.trim().toLowerCase();
         if (taskData.tags.map(t => t.toLowerCase()).includes(tagText)) {
@@ -167,7 +148,6 @@ const TaskManager = (() => {
         }
       });
     } else {
-      // Modo creación
       elements.modalTitleElement.textContent = 'Nueva tarea';
       elements.saveButtonElement.textContent = 'Crear tarea';
       clearTaskForm(elements);
@@ -205,7 +185,6 @@ const TaskManager = (() => {
     closeDeleteModal();
   };
 
-  // Funciones para manejo de tareas
   const createTaskCard = taskData => {
     const taskCard = createTaskCardElement(
       taskData,
@@ -218,11 +197,11 @@ const TaskManager = (() => {
     );
     if (column) {
       const allTaskCards = Array.from(column.children);
-      allTaskCards.push(taskCard); // Agregar la nueva tarea
+      allTaskCards.push(taskCard);
       allTaskCards.sort((a, b) => {
         const dateA = new Date(a.querySelector('.date span').textContent);
         const dateB = new Date(b.querySelector('.date span').textContent);
-        return dateA - dateB; // Orden ascendente
+        return dateA - dateB; 
       });
       allTaskCards.forEach(card => column.appendChild(card));
     }
@@ -240,7 +219,6 @@ const TaskManager = (() => {
     });
   };
 
-  // Mantener los cambios persistentes
   const persistTaskChanges = () => {
     const currentUser = getCurrentUser();
     if (!currentUser) return;
@@ -256,7 +234,6 @@ const TaskManager = (() => {
     saveUserTasks(currentUser, allTasks);
   };
 
-  // Filtrado de tareas
   const filterTasksByPriority = priority => {
     const allTasks = document.querySelectorAll('.task-card');
 
@@ -273,7 +250,6 @@ const TaskManager = (() => {
     });
   };
 
-  // Utilidad para generar ID único para tareas
   const generateTaskId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
   };
@@ -283,5 +259,4 @@ const TaskManager = (() => {
   };
 })();
 
-// Inicializar la aplicación cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', TaskManager.init);

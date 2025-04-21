@@ -33,7 +33,6 @@ export const loadNews = async (query = 'noticias') => {
   }
 };
 
-// Búsqueda personalizada
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   const query = searchInput.value.trim();

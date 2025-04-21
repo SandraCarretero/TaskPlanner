@@ -1,6 +1,5 @@
 import { loadUserTasks } from './taskStorage.js';
 
-// Renderiza las tarjetas de etiquetas
 export function renderTagSummaryCards(user) {
   if (!user) return;
 
@@ -8,7 +7,6 @@ export function renderTagSummaryCards(user) {
   const container = document.getElementById('project-cards-container');
   container.innerHTML = '';
 
-  // Agrupar por etiqueta
   const etiquetas = {};
 
   tasks.forEach(task => {
@@ -28,7 +26,6 @@ export function renderTagSummaryCards(user) {
     'Otros'
   ];
 
-  // Ordenamos las etiquetas antes de mostrarlas
   const etiquetasOrdenadas = Object.entries(etiquetas).sort(([a], [b]) => {
     const indexA = ordenEtiquetas.indexOf(a);
     const indexB = ordenEtiquetas.indexOf(b);
@@ -72,7 +69,6 @@ export function renderTagSummaryCards(user) {
   });
 }
 
-// Asigna colores personalizados a etiquetas
 const getColorFromCSSVariable = label => {
   const rootStyles = getComputedStyle(document.documentElement);
   return rootStyles.getPropertyValue(`--${label}`).trim();
@@ -87,5 +83,5 @@ const getIconClassForLabel = label => {
     Ocio: 'fas fa-gamepad',
     Otros: 'fas fa-tag'
   };
-  return iconClasses[label] || 'fas fa-question'; // Por defecto, si no se encuentra la etiqueta
+  return iconClasses[label] || 'fas fa-question';
 };
