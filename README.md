@@ -36,7 +36,7 @@
 
 ## 📁 Estructura del proyecto
 
-<pre> ```
+<pre>
 TaskPlanner/
 ├── css/
 │   ├── login.css
@@ -64,7 +64,7 @@ TaskPlanner/
 │   ├── profile.js
 │   └── weather.js
 └── index.html
-``` </pre>
+</pre>
 
 ## ¿Qué he aprendido en este proyecto? 🙇🏻
 
