@@ -80,7 +80,6 @@ const TaskManager = (() => {
     );
     elements.cancelButtonElement.addEventListener('click', closeTaskModal);
     elements.saveButtonElement.addEventListener('click', saveTaskHandler);
-    elements.logoutBtn?.addEventListener('click', handleLogout);
 
     // Modal de eliminación
     elements.confirmDeleteBtn.addEventListener('click', confirmDelete);
@@ -272,12 +271,6 @@ const TaskManager = (() => {
         task.style.display = 'none';
       }
     });
-  };
-
-  // Cierre de sesión
-  const handleLogout = () => {
-    logoutUser();
-    window.location.href = 'html/login.html';
   };
 
   // Utilidad para generar ID único para tareas

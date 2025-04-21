@@ -18,7 +18,6 @@ export const getDOMElements = () => {
     cancelDeleteBtn: document.getElementById('cancel-delete'),
 
     userNameElement: document.getElementById('title'),
-    logoutBtn: document.getElementById('logout'),
     avatarElement: document.getElementById('avatar'),
 
     filterBtn: document.getElementById('priority-filter-btn'),
