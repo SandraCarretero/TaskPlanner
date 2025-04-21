@@ -13,12 +13,14 @@
 
 .main-area-profile {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .avatar {
   width: 85px;
   aspect-ratio: 1;
-  background-color: #2196f3;
+  background-color: var(--color-primary);
   border-radius: 50%;
   font-weight: bold;
   font-size: 28px;
@@ -33,6 +35,14 @@
 .form-group {
   margin-bottom: 25px;
   text-align: left;
+}
+
+.form-group-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .form-group label {
@@ -59,7 +69,7 @@ input {
 }
 
 input:focus {
-  border-color: #2196f3;
+  border-color: var(--color-primary-hover);
   outline: none;
 }
 
@@ -69,7 +79,7 @@ input:disabled {
 }
 
 .edit-btn {
-  background-color: #2196f3;
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -78,15 +88,22 @@ input:disabled {
   color: white;
 }
 
+.outline-btn {
+  background: #fff;
+  outline: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  display: flex;
+  gap: 10px;
+}
+
 .delete-btn {
-  margin-top: 20px;
   background-color: #f44336;
   color: white;
 }
 
 @media (hover: hover) {
   .edit-btn:hover {
-    background-color: #1976d2;
+    background-color: #4d27c0;
     transform: translateY(-2px);
   }
 
@@ -97,6 +114,10 @@ input:disabled {
 
   .delete-btn:hover {
     background-color: #d32f2f;
+    transform: translateY(-2px);
+  }
+
+  .outline-btn:hover {
     transform: translateY(-2px);
   }
 }
@@ -177,9 +198,17 @@ input:disabled {
 
 /* Media Queries para laptops */
 @media (min-width: 1024px) {
+  .main-area-profile {
+    flex-direction: row;
+  }
+
   .profile-container {
     margin: 0;
     margin-top: 10px;
+  }
+
+  .form-group-btns{
+    flex-direction: row;
   }
 
   .project-cards-container {

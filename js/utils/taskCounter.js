@@ -60,7 +60,7 @@ export function renderTagSummaryCards(user) {
       </div>
       <div class="progress-circle">
         <svg width="50" height="50">
-          <circle cx="25" cy="25" r="22" stroke="#f3f3f3" stroke-width="5" fill="none" />
+          <circle cx="25" cy="25" r="22" stroke="${color}20" stroke-width="5" fill="none" />
           <circle cx="25" cy="25" r="22" stroke="${color}" stroke-width="5" fill="none" stroke-dasharray="${strokeDasharray}" stroke-dashoffset="${dashoffset}" stroke-linecap="round"
   transform="rotate(-90 25 25)" />
         </svg>

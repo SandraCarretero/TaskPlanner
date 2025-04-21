@@ -30,8 +30,8 @@
   <body>
     <div class="main-content">
       <div class="sidebar">
-        <a href="index.html" class="hidden-mobile">
-          <div class="nav-item logo">
+        <a class="hidden-mobile">
+          <div class="logo">
             <img src="img/icon.svg" alt="" class="logo-img" />
             <span>Flowtask</span>
           </div>
@@ -42,15 +42,22 @@
             <span class="hidden-mobile">Tareas</span>
           </div>
         </a>
-        <a href="index.html">
+        <a href="#">
           <div class="nav-item">
             <i class="fas fa-calendar"></i>
             <span class="hidden-mobile">Eventos</span>
           </div>
         </a>
+        
         <div id="addTaskMenu" class="nav-item nav-plus hidden-desktop">
           <i class="fa-solid fa-plus"></i>
         </div>
+        <a href="#">
+          <div class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="hidden-mobile">Calendario</span>
+          </div>
+        </a>
         <a href="html/profile.html">
           <div class="nav-item">
             <i class="fas fa-user"></i>
@@ -58,7 +65,7 @@
           </div>
         </a>
 
-        <div id="logout" class="nav-item">
+        <div id="logout" class="nav-item hidden-mobile">
           <i class="fas fa-sign-out-alt"></i>
           <span class="hidden-mobile">Salir</span>
         </div>
@@ -98,12 +105,12 @@
             <div class="info-card weather-card">
               <div class="weather-temp">
                 <img src="" alt="" id="weather-icon" class="weather-icon" />
-                <span id="weather-temp">26°C</span>
+                <span id="weather-temp">°C</span>
               </div>
             </div>
             <a href="./html/profile.html">
               <div class="profile">
-                <div id="avatar" class="avatar">JD</div>
+                <div id="avatar" class="avatar"></div>
               </div>
             </a>
           </div>

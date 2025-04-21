@@ -1,10 +1,30 @@
 :root {
-  --Personal: #2196f3;
-  --Trabajo: #ff9800;
-  --Reunión: #f44336;
-  --Ocio: #9c27b0;
-  --Salud: #009688;
-  --Otros: #795548;
+  --Personal: #b3d9ff;
+  --Trabajo: #ffd59e;
+  --Reunión: #ffb3b3;
+  --Ocio: #dab6f7;
+  --Salud: #a8e5e0;
+  --Otros: #d2b48c;
+  --tag-text: #fff;
+
+  --color-primary: #5f33e1;
+  --color-primary-hover: #5f33e13a;
+  --color-secundary: #eee9ff;
+  --color-date: #999;
+
+  --color-pending-bg: #e7f3ff;
+  --color-pending: #0087ff;
+  --color-progress-bg: #ffe9e1;
+  --color-progress: #ff7d53;
+  --color-completed-bg: #eee9ff;
+  --color-completed: #5f33e1;
+
+  --color-danger: #ff0000;
+  --color-danger-transparent: #ffe6e6;
+
+  --color-priority-low: #a6e6b8;
+  --color-priority-medium: #ffe08a; 
+  --color-priority-high: #ff9e9e;
 }
 
 *,
@@ -33,9 +53,46 @@ ul {
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  color: var(--text-color);
-  background-color: #f5f7fa;
   margin: 0;
+  background-color: #ffffff;
+  background-image: radial-gradient(
+      circle at 57% 33%,
+      rgba(153, 204, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at -20% 80%,
+      rgba(231, 153, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 170% -12%,
+      rgba(255, 203, 153, 0.3) 0%,
+      transparent 50%
+    );
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body {
+  background-color: #ffffff;
+  background-image: radial-gradient(
+      circle at 57% 33%,
+      rgba(153, 204, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at -20% 80%,
+      rgba(231, 153, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 170% -12%,
+      rgba(255, 203, 153, 0.3) 0%,
+      transparent 50%
+    );
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Main Content */
@@ -63,6 +120,7 @@ body {
   justify-content: flex-start;
   margin-block: 4px;
   font-size: 25px;
+  margin-bottom: 23px;
 }
 
 .buttons-container {
@@ -79,9 +137,10 @@ body {
   display: flex;
   gap: 10px;
   border: none;
-  background: blue;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
+  align-items: center;
 }
 
 .button--small {
@@ -151,6 +210,7 @@ body {
   border-radius: 15px;
   padding: 3px 8px;
   font-size: 12px;
+  font-weight: bold;
   color: #666;
   width: 27px;
   aspect-ratio: 1;
@@ -160,30 +220,30 @@ body {
 }
 
 .pending .badge {
-  background-color: #ffe7ba;
-  color: #d48806;
+  background-color: var(--color-pending-bg);
+  color: var(--color-pending);
 }
 
 .progress .badge {
-  background-color: #bae7ff;
-  color: #0958d9;
+  background-color: var(--color-progress-bg);
+  color: var(--color-progress);
 }
 
 .completed .badge {
-  background-color: #d9f7be;
-  color: #389e0d;
+  background-color: var(--color-completed-bg);
+  color: var(--color-completed);
 }
 
 .pending .column-header {
-  border-bottom-color: #ffe7ba;
+  border-bottom-color: var(--color-pending-bg);
 }
 
 .progress .column-header {
-  border-bottom-color: #bae7ff;
+  border-bottom-color: var(--color-progress-bg);
 }
 
 .completed .column-header {
-  border-bottom-color: #d9f7be;
+  border-bottom-color: var(--color-completed-bg);
 }
 
 /* Tarjetas de tareas */
@@ -211,20 +271,20 @@ body {
 }
 
 .task-card.priority-alta {
-  border-left-color: #f5222d;
+  border-left-color: var(--color-priority-high);
 }
 
 .task-card.priority-media {
-  border-left-color: #faad14;
+  border-left-color: var(--color-priority-medium);
 }
 
 .task-card.priority-baja {
-  border-left-color: #52c41a;
+  border-left-color: var(--color-priority-low);
 }
 
 .task-card .date {
   font-size: 12px;
-  color: #999;
+  color: var(--color-date);
   margin-bottom: 8px;
 }
 
@@ -265,19 +325,19 @@ body {
 }
 
 .priority-todas .priority-dot {
-  border: 1px solid blue;
+  border: 1px solid var(--color-primary);
 }
 
 .priority-alta .priority-dot {
-  background-color: #f5222d;
+  background-color: var(--color-priority-high);
 }
 
 .priority-media .priority-dot {
-  background-color: #faad14;
+  background-color: var(--color-priority-medium);
 }
 
 .priority-baja .priority-dot {
-  background-color: #52c41a;
+  background-color: var(--color-priority-low);
 }
 
 .priority-text {
@@ -308,11 +368,11 @@ body {
 }
 
 .editIcon {
-  color: #108cae;
+  color: var(--color-primary);
 }
 
 .deleteIcon {
-  color: #f44336;
+  color: var(--color-danger);
 }
 
 .tag-container {
@@ -327,34 +387,34 @@ body {
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
-  color: white;
+  color: var(--tag-text);
   display: inline-flex;
   align-items: center;
   border: none;
 }
 
 .tag-trabajo {
-  background-color: #ff9800;
+  background-color: var(--Trabajo);
 }
 
 .tag-personal {
-  background-color: #2196f3;
+  background-color: var(--Personal);
 }
 
 .tag-reunión {
-  background-color: #f44336;
+  background-color: var(--Reunión);
 }
 
 .tag-ocio {
-  background-color: #9c27b0;
+  background-color: var(--Ocio);
 }
 
 .tag-salud {
-  background-color: #009688;
+  background-color: var(--Salud);
 }
 
 .tag-otros {
-  background-color: #795548;
+  background-color: var(--Otros);
 }
 
 /* Botón de agregar tarea */
@@ -388,9 +448,12 @@ body {
 }
 
 .profile {
-  display: none;
+  display: flex;
+  position: absolute;
+  top: 40px;
+  right: 12px;
   margin-block: 18px;
-  background: blue;
+  background: var(--color-primary);
   width: 50px;
   aspect-ratio: 1;
   align-items: center;
@@ -482,7 +545,7 @@ body {
 
 .news-card {
   margin-bottom: 1rem;
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid var(--color-secundary);
 }
 
 .news-card:last-child {
@@ -501,7 +564,7 @@ body {
 
 .news-card a {
   display: inline-block;
-  color: #a5a5a5;
+  color: var(--color-primary);
   font-size: 12px;
 }
 
@@ -557,8 +620,8 @@ body {
 }
 
 .btn-primary {
-  background-color: #1890ff;
-  color: white;
+  background-color: var(--color-primary);
+  color: #ffffff;
 }
 
 .btn-outline {
@@ -568,7 +631,7 @@ body {
 }
 
 .danger {
-  background-color: red;
+  background-color: var(--color-danger);
   color: white;
 }
 
@@ -630,7 +693,7 @@ textarea.form-control {
 }
 
 .error-message {
-  color: red;
+  color: var(--color-danger);
   font-size: 0.8rem;
   margin-top: 4px;
 }
@@ -674,6 +737,23 @@ textarea.form-control {
 
 /* Media Queries para laptops */
 @media (min-width: 1024px) {
+  body {
+    background-image: radial-gradient(
+        circle at 57% 33%,
+        rgba(153, 204, 255, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at -20% 80%,
+        rgba(231, 153, 255, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 90% -12%,
+        rgba(255, 203, 153, 0.3) 0%,
+        transparent 50%
+      );
+  }
   .main-content {
     grid-template-columns: 12% 1fr;
     gap: 13px;
@@ -700,6 +780,7 @@ textarea.form-control {
 
   .profile {
     display: flex;
+    position: static;
     margin-block: 12px;
     margin-right: 10px;
   }

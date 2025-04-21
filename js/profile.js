@@ -11,7 +11,7 @@ const confirmModal = document.getElementById('confirm-modal');
 const confirmDeleteBtn = document.getElementById('confirm-delete');
 const cancelDeleteBtn = document.getElementById('cancel-delete');
 const userAvatar = document.getElementById('user-avatar');
-const logoutBtn = document.getElementById('logout');
+const logoutBtn = document.getElementById('logout-profile');
 const editBtn = document.getElementById('edit-btn');
 
 // Estado actual
@@ -192,9 +192,6 @@ const updateUserData = (name, email, password) => {
 
     // Actualizar avatar con el nuevo nombre
     updateAvatar(name);
-
-    // Mensaje de éxito
-    alert('Perfil actualizado correctamente');
 
     // Después de guardar, restauramos la interfaz:
     // Deshabilitamos los inputs y el botón de guardar

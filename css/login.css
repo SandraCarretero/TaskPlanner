@@ -31,15 +31,20 @@ body {
 
 .logo {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
-  color: #3498db;
+  gap: 10px;
+  padding-block: 0;
+  margin-block: 5px;
+  padding-left: 0;
+  font-weight: bolder;
+  color: var(--color-primary);
+  font-size: 30px;
 }
 
-.logo i {
-  font-size: 2rem;
-  margin-right: 1rem;
+.logo img {
+  width: 35px;
 }
 
 .logo h1 {
@@ -102,7 +107,7 @@ body {
 }
 
 .error-message {
-  color: #e53e3e;
+  color: var(--color-danger);
   margin: 0.5rem 0;
   font-size: 0.9rem;
 }
@@ -122,6 +127,6 @@ body {
 }
 
 .wrong {
-  border-color: red;
-  background-color: #ffe6e6;
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-transparent);
 }

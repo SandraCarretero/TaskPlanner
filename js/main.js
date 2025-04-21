@@ -80,7 +80,7 @@ const TaskManager = (() => {
     );
     elements.cancelButtonElement.addEventListener('click', closeTaskModal);
     elements.saveButtonElement.addEventListener('click', saveTaskHandler);
-    elements.logoutBtn.addEventListener('click', handleLogout);
+    elements.logoutBtn?.addEventListener('click', handleLogout);
 
     // Modal de eliminación
     elements.confirmDeleteBtn.addEventListener('click', confirmDelete);

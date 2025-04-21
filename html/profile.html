@@ -31,8 +31,8 @@
   <body>
     <div class="main-content">
       <div class="sidebar">
-        <a href="index.html" class="hidden-mobile">
-          <div class="nav-item logo">
+        <a class="hidden-mobile">
+          <div class="logo">
             <img src="../img/icon.svg" alt="" class="logo-img" />
             <span>Flowtask</span>
           </div>
@@ -43,15 +43,23 @@
             <span class="hidden-mobile">Tareas</span>
           </div>
         </a>
-        <a href="../index.html">
+        <a href="#">
           <div class="nav-item">
             <i class="fas fa-calendar"></i>
             <span class="hidden-mobile">Eventos</span>
           </div>
         </a>
+
         <div id="addTaskMenu" class="nav-item nav-plus hidden-desktop">
           <i class="fa-solid fa-plus"></i>
         </div>
+
+        <a href="#">
+          <div class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="hidden-mobile">Calendario</span>
+          </div>
+        </a>
         <a href="./profile.html">
           <div class="nav-item active">
             <i class="fas fa-user"></i>
@@ -59,7 +67,7 @@
           </div>
         </a>
 
-        <div id="logout" class="nav-item">
+        <div id="logout" class="nav-item hidden-mobile">
           <i class="fas fa-sign-out-alt"></i>
           <span class="hidden-mobile">Salir</span>
         </div>
@@ -73,7 +81,7 @@
         </div>
         <main class="main-area profile-container">
           <div class="avatar" id="user-avatar">AB</div>
-  
+
           <form id="profile-form">
             <div class="form-group">
               <label for="username">Nombre</label>
@@ -85,12 +93,12 @@
                 disabled
               />
             </div>
-  
+
             <div class="form-group">
               <label for="email">Correo electrónico</label>
               <input type="email" id="email" name="email" required disabled />
             </div>
-  
+
             <div class="form-group">
               <label for="password">Contraseña</label>
               <input
@@ -102,20 +110,28 @@
               />
             </div>
           </form>
-  
-          <div class="form-group">
-            <button id="edit-btn" class="btn edit-btn">Editar</button>
-            <button id="update-btn" class="btn update-btn" disabled>
-              Guardar
+
+          <div class="form-group form-group-btns">
+            <div>
+              <button id="edit-btn" class="btn edit-btn">Editar</button>
+              <button id="update-btn" class="btn update-btn" disabled>
+                Guardar
+              </button>
+              <button id="delete-user" class="btn delete-btn">Eliminar</button>
+            </div>
+            <button id="logout-profile" class="btn outline-btn">
+              <i class="fas fa-sign-out-alt"></i>Salir
             </button>
-            <button id="delete-user" class="btn delete-btn">Eliminar</button>
           </div>
         </main>
         <div id="project-cards-container" class="project-cards-container">
           <div class="project-card">
             <div class="project-info">
               <div class="icon-container">
-                <img src="https://img.icons8.com/ios-filled/50/briefcase.png" alt="Project Icon" />
+                <img
+                  src="https://img.icons8.com/ios-filled/50/briefcase.png"
+                  alt="Project Icon"
+                />
               </div>
               <div class="text-info">
                 <h4>Office Project</h4>
@@ -124,14 +140,29 @@
             </div>
             <div class="progress-circle">
               <svg width="50" height="50">
-                <circle cx="25" cy="25" r="22" stroke="#f3f3f3" stroke-width="5" fill="none" />
-                <circle cx="25" cy="25" r="22" stroke="#f06292" stroke-width="5" fill="none"
-                  stroke-dasharray="138.2" stroke-dashoffset="41.46" stroke-linecap="round" />
+                <circle
+                  cx="25"
+                  cy="25"
+                  r="22"
+                  stroke="#f3f3f3"
+                  stroke-width="5"
+                  fill="none"
+                />
+                <circle
+                  cx="25"
+                  cy="25"
+                  r="22"
+                  stroke="#f06292"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-dasharray="138.2"
+                  stroke-dashoffset="41.46"
+                  stroke-linecap="round"
+                />
               </svg>
               <div class="progress-text">70%</div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -141,8 +172,8 @@
       <div class="modal-content">
         <h2>¿Eliminar usuario?</h2>
         <p>
-          ¿Estás segura de que quieres eliminar tu cuenta? <br> Esta acción no se
-          puede deshacer.
+          ¿Estás segura de que quieres eliminar tu cuenta? <br />
+          Esta acción no se puede deshacer.
         </p>
         <button id="confirm-delete" class="btn danger">Eliminar</button>
         <button id="cancel-delete" class="btn btn-outline">Cancelar</button>
