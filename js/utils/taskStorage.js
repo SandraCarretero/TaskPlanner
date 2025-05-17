@@ -1,3 +1,5 @@
+// Observación: Buena práctica cargando tareas del usuario
+// Sugerencia: Implementar un sistema de caché para mejor rendimiento
 export const loadUserTasks = user => {
   if (!user) return [];
 
@@ -8,6 +10,8 @@ export const loadUserTasks = user => {
   return tasksData.tasks;
 };
 
+// Observación: Buena práctica guardando tareas del usuario
+// Sugerencia: Implementar un sistema de respaldo para datos críticos
 export const saveUserTasks = (user, tasks) => {
   if (!user) return;
 
@@ -15,6 +19,8 @@ export const saveUserTasks = (user, tasks) => {
   localStorage.setItem(`tasks_${user.email}`, JSON.stringify(tasksData));
 };
 
+// Observación: Buena práctica obteniendo tareas del DOM
+// Sugerencia: Considerar usar un sistema de estado más robusto
 export const getAllTasksFromDOM = () => {
   const allTasks = [];
 

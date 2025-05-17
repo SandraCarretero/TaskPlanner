@@ -1,5 +1,6 @@
 import { checkUserSession, logoutUser } from './services/authService.js';
 import { renderTagSummaryCards } from './utils/taskCounter.js';
+import { getDOMElements, showElement, hideElement } from './utils/domUtils.js';
 
 const passwordInput = document.getElementById('password');
 const updateBtn = document.getElementById('update-btn');

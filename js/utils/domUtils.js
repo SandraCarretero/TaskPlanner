@@ -1,3 +1,5 @@
+// Observación: Buena práctica obteniendo referencias a elementos del DOM
+// Sugerencia: Considerar usar un sistema de selectores más robusto
 export const getDOMElements = () => {
   return {
     addButtonElement: document.getElementById('addTask'),
@@ -25,14 +27,20 @@ export const getDOMElements = () => {
   };
 };
 
+// Observación: Buena práctica mostrando elementos
+// Sugerencia: Considerar usar un sistema de animaciones para transiciones
 export const showElement = element => {
   element.classList.remove('hidden');
 };
 
+// Observación: Buena práctica ocultando elementos
+// Sugerencia: Considerar usar un sistema de animaciones para transiciones
 export const hideElement = element => {
   element.classList.add('hidden');
 };
 
+// Observación: Buena práctica actualizando contadores
+// Sugerencia: Implementar un sistema de notificaciones para cambios
 export const updateBadgeCount = (badgeId, count) => {
   const badge = document.getElementById(badgeId);
   if (badge) {
@@ -40,6 +48,8 @@ export const updateBadgeCount = (badgeId, count) => {
   }
 };
 
+// Observación: Buena práctica creando elementos de tareas
+// Sugerencia: Considerar usar un sistema de templates
 export const createTaskCardElement = (taskData, onEdit, onDelete) => {
   const { id, title, date, tags, description, priority, status } = taskData;
 
