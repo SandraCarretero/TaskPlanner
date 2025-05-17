@@ -1,3 +1,5 @@
+// Observación: Buena práctica obteniendo referencias a elementos del DOM al inicio
+// Sugerencia: Considerar agrupar estos elementos en un objeto para mejor organización
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const showRegisterBtn = document.getElementById('show-register');
@@ -7,16 +9,22 @@ const registerBox = document.getElementById('register-box');
 const loginError = document.getElementById('login-error');
 const registerError = document.getElementById('register-error');
 
+// Observación: Buena práctica separando elementos del formulario
+// Sugerencia: Considerar usar un sistema de formularios más robusto
 const newName = document.getElementById('new-name');
 const newEmail = document.getElementById('new-email');
 const newPassword = document.getElementById('new-password');
 const confirmPassword = document.getElementById('confirm-password');
 
+// Observación: Buena práctica inicializando al cargar
+// Sugerencia: Implementar un sistema de manejo de errores en la inicialización
 document.addEventListener('DOMContentLoaded', () => {
   initUIHandlers();
   checkSession();
 });
 
+// Observación: Buena práctica delegando eventos
+// Sugerencia: Implementar un sistema de eventos más robusto
 const initUIHandlers = () => {
   showRegisterBtn?.addEventListener('click', showRegisterForm);
   cancelRegisterBtn?.addEventListener('click', cancelRegisterForm);
@@ -24,11 +32,15 @@ const initUIHandlers = () => {
   registerForm?.addEventListener('submit', handleRegister);
 };
 
+// Observación: Buena práctica alternando entre formularios
+// Sugerencia: Considerar usar un sistema de estados más robusto
 const showRegisterForm = () => {
   registerBox?.classList.remove('hidden');
   loginBox?.classList.add('hidden');
 };
 
+// Observación: Buena práctica limpiando formularios
+// Sugerencia: Implementar un sistema de reset más robusto
 const cancelRegisterForm = () => {
   registerBox?.classList.add('hidden');
   registerForm?.reset();
@@ -36,6 +48,8 @@ const cancelRegisterForm = () => {
   loginBox?.classList.remove('hidden');
 };
 
+// Observación: Buena práctica validando datos de login
+// Sugerencia: Implementar un sistema de validación más robusto
 const handleLogin = e => {
   e.preventDefault();
 
@@ -54,6 +68,8 @@ const handleLogin = e => {
   }
 };
 
+// Observación: Buena práctica validando datos de registro
+// Sugerencia: Implementar un sistema de validación más robusto
 const handleRegister = e => {
   e.preventDefault();
 
@@ -86,6 +102,8 @@ const handleRegister = e => {
   redirectToHome();
 };
 
+// Observación: Buena práctica validando registro
+// Sugerencia: Implementar un sistema de validación más robusto
 const validateRegistration = (name, email, password, confirmPassword) => {
   let valid = true;
 
@@ -120,20 +138,28 @@ const validateRegistration = (name, email, password, confirmPassword) => {
   return { valid };
 };
 
+// Observación: Buena práctica obteniendo usuarios
+// Sugerencia: Implementar un sistema de caché para mejor rendimiento
 const getUsers = () => {
   return JSON.parse(localStorage.getItem('users')) || [];
 };
 
+// Observación: Buena práctica guardando usuarios
+// Sugerencia: Implementar un sistema de respaldo para datos críticos
 const saveUser = user => {
   const users = getUsers();
   users.push(user);
   localStorage.setItem('users', JSON.stringify(users));
 };
 
+// Observación: Buena práctica inicializando datos
+// Sugerencia: Implementar un sistema de migración de datos
 const createEmptyTaskList = email => {
   localStorage.setItem(`tasks_${email}`, JSON.stringify({ tasks: [] }));
 };
 
+// Observación: Buena práctica manejando sesiones
+// Sugerencia: Implementar un sistema de sesiones más seguro
 const createSession = user => {
   const session = {
     email: user.email,
@@ -144,6 +170,8 @@ const createSession = user => {
   sessionStorage.setItem('session', JSON.stringify(session));
 };
 
+// Observación: Buena práctica verificando sesiones
+// Sugerencia: Implementar un sistema de sesiones más robusto
 const checkSession = () => {
   const session = JSON.parse(sessionStorage.getItem('session'));
   if (session?.isLoggedIn) {
@@ -151,6 +179,8 @@ const checkSession = () => {
   }
 };
 
+// Observación: Buena práctica mostrando errores
+// Sugerencia: Implementar un sistema de notificaciones más amigable
 const showError = (inputId, message) => {
   const input = document.getElementById(inputId);
   const error = document.getElementById(`error-${inputId}`);
@@ -161,6 +191,8 @@ const showError = (inputId, message) => {
   }
 };
 
+// Observación: Buena práctica limpiando errores
+// Sugerencia: Implementar un sistema de validación más robusto
 const resetFormErrors = () => {
   document
     .querySelectorAll('.form-control')
@@ -180,6 +212,8 @@ const resetFormErrors = () => {
   registerError?.classList.add('hidden');
 };
 
+// Observación: Buena práctica redirigiendo
+// Sugerencia: Implementar un sistema de rutas más robusto
 const redirectToHome = () => {
   window.location.href = '../index.html';
 };

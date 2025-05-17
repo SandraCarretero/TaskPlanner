@@ -1,3 +1,5 @@
+// Observación: Buena práctica usando módulos ES6 para importaciones
+// Sugerencia: Considerar usar un sistema de bundling para mejor organización
 import { loadCurrentWeather } from './weather.js';
 import { loadNews } from './news.js';
 
@@ -23,7 +25,11 @@ import {
   getCurrentUser
 } from './services/authService.js';
 
+// Observación: Buena práctica usando IIFE para encapsulamiento
+// Sugerencia: Considerar usar clases ES6 para mejor organización
 const TaskManager = (() => {
+  // Observación: Buena práctica usando un objeto state para gestión de estado
+  // Sugerencia: Considerar usar un sistema de gestión de estado más robusto
   let state = {
     editingTaskId: null,
     editingTaskCard: null,
@@ -31,6 +37,8 @@ const TaskManager = (() => {
     currentUser: null
   };
 
+  // Observación: Buena práctica inicializando la aplicación
+  // Sugerencia: Implementar un sistema de manejo de errores más robusto
   const init = () => {
     const elements = getDOMElements();
     bindEventListeners(elements);
@@ -49,6 +57,8 @@ const TaskManager = (() => {
     loadNews();
   };
 
+  // Observación: Buena práctica inicializando la interfaz de usuario
+  // Sugerencia: Considerar usar un sistema de templates para mejor mantenimiento
   const initializeUserInterface = (user, elements) => {
     const firstName = user.name.split(' ')[0];
     elements.userNameElement.textContent = `Bienvenid@ ${firstName}`;
@@ -62,6 +72,8 @@ const TaskManager = (() => {
     elements.avatarElement.textContent = initials.toUpperCase();
   };
 
+  // Observación: Buena práctica usando delegación de eventos
+  // Sugerencia: Considerar usar un sistema de eventos más centralizado
   const bindEventListeners = elements => {
     elements.addButtonElement.addEventListener('click', () => openTaskModal());
     elements.addButtonMenuElement.addEventListener('click', () =>
@@ -96,6 +108,8 @@ const TaskManager = (() => {
     });
   };
 
+  // Observación: Buena práctica manejando el guardado de tareas
+  // Sugerencia: Implementar un sistema de validación más robusto
   const saveTaskHandler = () => {
     const elements = getDOMElements();
     if (!validateTaskForm(elements)) return;
@@ -122,6 +136,8 @@ const TaskManager = (() => {
     closeTaskModal();
   };
 
+  // Observación: Buena práctica manejando modales
+  // Sugerencia: Considerar usar un sistema de modales más reutilizable
   const openTaskModal = (taskData = null, taskCard = null) => {
     const elements = getDOMElements();
 
@@ -158,24 +174,32 @@ const TaskManager = (() => {
     showElement(elements.modalElement);
   };
 
+  // Observación: Buena práctica cerrando modales
+  // Sugerencia: Implementar un sistema de animaciones para transiciones
   const closeTaskModal = () => {
     const elements = getDOMElements();
     hideElement(elements.modalElement);
     clearTaskForm(elements);
   };
 
+  // Observación: Buena práctica manejando eliminación de tareas
+  // Sugerencia: Implementar un sistema de confirmación más robusto
   const openDeleteModal = (taskCard, taskId) => {
     const elements = getDOMElements();
     showElement(elements.deleteModal);
     state.taskToDelete = { taskCard, taskId };
   };
 
+  // Observación: Buena práctica cerrando modales de eliminación
+  // Sugerencia: Considerar usar un sistema de modales más reutilizable
   const closeDeleteModal = () => {
     const elements = getDOMElements();
     hideElement(elements.deleteModal);
     state.taskToDelete = null;
   };
 
+  // Observación: Buena práctica confirmando eliminación
+  // Sugerencia: Implementar un sistema de respaldo antes de eliminar
   const confirmDelete = () => {
     if (state.taskToDelete) {
       state.taskToDelete.taskCard.remove();
@@ -185,6 +209,8 @@ const TaskManager = (() => {
     closeDeleteModal();
   };
 
+  // Observación: Buena práctica creando tarjetas de tareas
+  // Sugerencia: Considerar usar un sistema de templates para mejor mantenimiento
   const createTaskCard = taskData => {
     const taskCard = createTaskCardElement(
       taskData,
@@ -208,6 +234,8 @@ const TaskManager = (() => {
     updateBadges();
   };
 
+  // Observación: Buena práctica actualizando contadores
+  // Sugerencia: Implementar un sistema de notificaciones para cambios
   const updateBadges = () => {
     const statuses = ['pending', 'progress', 'completed'];
 
@@ -219,6 +247,8 @@ const TaskManager = (() => {
     });
   };
 
+  // Observación: Buena práctica persistiendo cambios
+  // Sugerencia: Implementar un sistema de caché para mejor rendimiento
   const persistTaskChanges = () => {
     const currentUser = getCurrentUser();
     if (!currentUser) return;
@@ -234,6 +264,8 @@ const TaskManager = (() => {
     saveUserTasks(currentUser, allTasks);
   };
 
+  // Observación: Buena práctica filtrando tareas
+  // Sugerencia: Implementar un sistema de filtros más avanzado
   const filterTasksByPriority = priority => {
     const allTasks = document.querySelectorAll('.task-card');
 
@@ -250,6 +282,8 @@ const TaskManager = (() => {
     });
   };
 
+  // Observación: Buena práctica generando IDs únicos
+  // Sugerencia: Considerar usar UUID para mayor seguridad
   const generateTaskId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
   };
@@ -259,4 +293,6 @@ const TaskManager = (() => {
   };
 })();
 
+// Observación: Buena práctica inicializando la aplicación al cargar el DOM
+// Sugerencia: Implementar un sistema de manejo de errores más robusto
 document.addEventListener('DOMContentLoaded', TaskManager.init);

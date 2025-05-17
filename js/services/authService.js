@@ -1,3 +1,5 @@
+// Observación: Buena práctica verificando sesiones
+// Sugerencia: Implementar un sistema de sesiones más seguro
 export const checkUserSession = () => {
   const session =
     JSON.parse(localStorage.getItem('session')) ||
@@ -10,6 +12,8 @@ export const checkUserSession = () => {
   return session;
 };
 
+// Observación: Buena práctica obteniendo usuario actual
+// Sugerencia: Implementar un sistema de caché para mejor rendimiento
 export const getCurrentUser = () => {
   return checkUserSession();
 };

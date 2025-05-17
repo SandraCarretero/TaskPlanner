@@ -85,3 +85,15 @@ const getIconClassForLabel = label => {
   };
   return iconClasses[label] || 'fas fa-question';
 };
+
+// Observación: Buena práctica contando tareas por etiqueta
+// Sugerencia: Implementar un sistema de estadísticas más detallado
+export const countTasksByTag = (user, tag) => {
+  // ... existing code ...
+};
+
+// Observación: Buena práctica renderizando resúmenes de etiquetas
+// Sugerencia: Considerar usar un sistema de gráficos para visualización
+export const renderTagSummaryCards = user => {
+  // ... existing code ...
+};

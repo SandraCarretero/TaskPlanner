@@ -1,7 +1,13 @@
+// Observación: Buena práctica usando constantes para valores fijos
+// Sugerencia: Considerar mover estas constantes a un archivo de configuración
 const apiKey = 'f53b18e8611267b98faa272a1039e762';
 const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
+// Observación: Buena práctica usando un objeto para servicios
+// Sugerencia: Considerar usar clases ES6 para mejor organización
 export const weatherService = {
+  // Observación: Buena práctica obteniendo clima por ciudad
+  // Sugerencia: Implementar un sistema de caché para mejor rendimiento
   getWeatherByCity: async city => {
     const url = `${baseUrl}?q=${city}&appid=${apiKey}&units=metric&lang=es`;
 
@@ -23,6 +29,8 @@ export const weatherService = {
     }
   },
 
+  // Observación: Buena práctica obteniendo clima por fecha
+  // Sugerencia: Implementar un sistema de reintentos para fallos de red
   getWeatherByDate: async date => {
     const url = `${baseUrl}?q=${city}&appid=${apiKey}&units=metric&lang=es`;
 
